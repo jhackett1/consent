@@ -1,0 +1,6 @@
+# Prisma Migrate lockfile v1
+
+20201129121432-init
+20201129121545-add-optional-name-to-user
+20201129121717-add-updated-at-to-user
+20201129131841-unique-emails-on-user
