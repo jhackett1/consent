@@ -1,0 +1,31 @@
+.ct-button{
+    background: $yellow;
+    color: $black;
+    width: 100%;
+    border: none;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+
+    &:hover{
+        background: darken($yellow, 10);
+    }
+    &:active{
+        background: darken($yellow, 12);
+    }
+    &:focus{
+        outline: 3px solid $black;
+    }
+
+    &--secondary{
+        background: $black;
+        color: $white;    
+        &:hover{
+            background: darken($black, 10);
+        }
+        &:active{
+            background: darken($black, 12);
+        }
+    }
+}

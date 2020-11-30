@@ -8,6 +8,8 @@ import {
 import Index from "./pages/Index"
 import Login from "./pages/Login"
 
+import "./styles/index.scss"
+
 const App = () => 
   <Router>
 
@@ -16,7 +18,7 @@ const App = () =>
       <Link to="/login">Log in</Link>
     </nav>
 
-    <Route path="/">
+    <Route path="/" exact>
       <Index/>
     </Route>
     <Route path="/login">

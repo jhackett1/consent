@@ -3,6 +3,8 @@ import { Formik, Form } from "formik"
 import * as Yup from "yup"
 import fetch from "isomorphic-unfetch"
 import Field from "../components/Field"
+import { Link } from "react-router-dom"
+import logo from "./logo.svg"
 
 const schema = Yup.object().shape({
     email: Yup.string()
@@ -13,34 +15,44 @@ const schema = Yup.object().shape({
 })
 
 const Login = () => 
-  <>
-    <h1>Log in</h1>
-    <Formik
-        initialValues={{ email: "jaye.hackett@gmail.com", password: "my-password" }}
-        validationSchema={schema}
-        onSubmit={async values => {
-            try{
-                const res = await fetch("/api/auth/login", {
-                    method: "POST",
-                    body: JSON.stringify(values),
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-                const data = await res.json()
-            } catch(err) {
-            }
-        }}
-    >
-        {({errors, touched}) =>
-            <Form>
-                <Field label="Email" name="email" errors= {touched.email ? errors.email : null}/>
-                <Field label="Password" name="password" errors= {touched.email ? errors.email : null}/>
+  <div className="ct-login">
+    <img src={logo} alt="Consent" className="ct-login__logo"/>
 
-                <button>Log in</button>
-            </Form>
-        }
-    </Formik>
-  </>
+    <div className="ct-login__form-box">
+        <h1 className="ct-login__title">Sign in</h1>
+        <Formik
+            initialValues={{ email: "jaye.hackett@gmail.com", password: "my-password" }}
+            validationSchema={schema}
+            onSubmit={async values => {
+                try{
+                    const res = await fetch("/api/auth/login", {
+                        method: "POST",
+                        body: JSON.stringify(values),
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    const data = await res.json()
+                } catch(err) {
+                }
+            }}
+        >
+            {({errors, touched}) =>
+                <Form>
+                    <Field label="Email" name="email" errors= {touched.email ? errors.email : null}/>
+                    <Field label="Password" name="password" errors= {touched.email ? errors.email : null}/>
+
+                    <button className="ct-button">Log in</button>
+                </Form>
+            }
+        </Formik>   
+        <p class="ct-login__actions">
+            <Link href="/">Register</Link>
+            <Link href="/">Forgotten password?</Link>
+        </p> 
+    </div>
+
+    <p class="ct-login__notice">Version 0.1 — Thank you for using Consent</p>
+  </div>
 
 export default Login

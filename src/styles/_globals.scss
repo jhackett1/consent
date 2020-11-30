@@ -1,0 +1,25 @@
+*{
+    box-sizing: border-box;
+    font-family: Helvetica, Helvetica Neue, Arial, sans-serif;
+}
+
+body{
+    margin: 0;
+    background: $white;
+}
+
+h1, h2, h3, h4, h5, p, li{
+    color: $black;
+}
+
+a{
+    color: $black;
+    &:hover{
+        text-decoration: none;
+    }
+    &:focus{
+        color: $white;
+        background: $black;
+        outline: 3px solid $black;
+    }
+}

@@ -6,9 +6,9 @@ const Field = ({
     name,
     errors
 }) =>
-    <div>
-        <label>{label}</label>
-        <FormikField name="password"/>
+    <div className="ct-field">
+        <label htmlFor={name}>{label}</label>
+        <FormikField name={name} id={name}/>
         {errors && <p>{errors}</p> }
     </div>
 
