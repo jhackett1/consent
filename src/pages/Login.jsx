@@ -22,7 +22,10 @@ const Login = () =>
             try{
                 const res = await fetch("/api/auth/login", {
                     method: "POST",
-                    body: JSON.stringify(values)
+                    body: JSON.stringify(values),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
                 })
                 const data = await res.json()
             } catch(err) {

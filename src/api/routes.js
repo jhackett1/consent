@@ -3,10 +3,10 @@ const { register, login, logout, me, authenticated } = require("./controllers/au
 
 const router = Router()
 
-router.post("/register", register)
-router.post("/login", login)
-router.get("/me", me)
-router.delete("/logout", logout)
+router.post("/auth/register", register)
+router.post("/auth/login", login)
+router.get("/auth/me", me)
+router.delete("/auth/logout", logout)
 
 router.use((error, req, res, next) => {
     res.status(400)

@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 model User {
@@ -16,9 +16,10 @@ model User {
   updated_at DateTime @updatedAt
 }
 
-model session {
-  sid String @id
+model Session {
+  sid Int @id @default(autoincrement())
   sess Json
   expire DateTime
   created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }

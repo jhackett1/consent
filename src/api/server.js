@@ -1,17 +1,24 @@
 require("dotenv").config()
 const express = require("express")
-const session = require('express-session')
+const session = require("express-session")
+const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 const routes = require("./routes")
 
 const server = express()
 
+server.use(cookieParser())
+server.use(bodyParser.json())
+server.use(bodyParser.urlencoded({extended: true}))
 server.use(session({
+    store: new (require("connect-pg-simple")(session))({
+    }),
     secret: process.env.SESSION_SECRET,
     resave: false,
-    cookie: { secure: true },
-    saveUninitialized: true
-}))
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }
+}));
+
 
 server.use("/api", routes)
 

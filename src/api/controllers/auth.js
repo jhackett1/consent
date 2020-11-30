@@ -8,7 +8,7 @@ module.exports = {
 
     login: async (req, res, next) => {
         try{
-            const {email, password} = JSON.parse(req.body)
+            const {email, password} = req.body
             if(!email || !password) throw new ApiError("Email and password are required", 400)
             const user = await db.user.findFirst({where: { email: email }})
             if(!user) throw new ApiError("User and password doesn't match", 401)
@@ -28,7 +28,7 @@ module.exports = {
 
     logout: async (req, res, next) => {
         try{
-            req.session.user = null
+            // await req.session.destroy()
             res.status(200)
             res.json(user)
         } catch(err){
@@ -38,6 +38,7 @@ module.exports = {
 
     me: async (req, res, next) => {
         try{
+            if(!req.session.user.id) throw new ApiError("You're not logged in", 400)
             const user = await db.user.findFirst({where: { id: req.session.user.id }})
             delete user.password_digest
             res.status(201)
@@ -49,7 +50,7 @@ module.exports = {
 
     register: async (req, res, next) => {
         try{
-            const {email, name, password} = JSON.parse(req.body)
+            const {email, name, password} = req.body
             if(!email || !password) throw new ApiError("Email and password are required", 400)
             const salt = await bcrypt.genSalt(10)
             const digest = await bcrypt.hash(req.body.password, salt)
