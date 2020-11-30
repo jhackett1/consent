@@ -28,9 +28,11 @@ module.exports = {
 
     logout: async (req, res, next) => {
         try{
-            // await req.session.destroy()
+            await req.session.destroy()
             res.status(200)
-            res.json(user)
+            res.json({
+                message: "Logged out successfully"
+            })
         } catch(err){
             next(err)
         }
@@ -42,7 +44,9 @@ module.exports = {
             const user = await db.user.findFirst({where: { id: req.session.user.id }})
             delete user.password_digest
             res.status(201)
-            res.json(user)
+            res.json({
+                user: user
+            })
         } catch(err){
             next(err)
         }

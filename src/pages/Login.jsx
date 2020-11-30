@@ -5,10 +5,11 @@ import fetch from "isomorphic-unfetch"
 import Field from "../components/Field"
 import { Link } from "react-router-dom"
 import logo from "./logo.svg"
+import { Helmet } from "react-helmet"
 
 const schema = Yup.object().shape({
     email: Yup.string()
-        .required("Please enter you email address")
+        .required("Please enter your email address")
         .email('Please give a valid email address'),
     password: Yup.string()    
         .required("Please enter your password")
@@ -16,8 +17,10 @@ const schema = Yup.object().shape({
 
 const Login = () => 
   <div className="ct-login">
+    <Helmet>
+        <title>Sign in | Consent</title>
+    </Helmet>
     <img src={logo} alt="Consent" className="ct-login__logo"/>
-
     <div className="ct-login__form-box">
         <h1 className="ct-login__title">Sign in</h1>
         <Formik
@@ -40,7 +43,7 @@ const Login = () =>
             {({errors, touched}) =>
                 <Form>
                     <Field label="Email" name="email" errors= {touched.email ? errors.email : null}/>
-                    <Field label="Password" name="password" errors= {touched.email ? errors.email : null}/>
+                    <Field label="Password" name="password" errors= {touched.password ? errors.password : null}/>
 
                     <button className="ct-button">Log in</button>
                 </Form>

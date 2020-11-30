@@ -13,11 +13,6 @@ import "./styles/index.scss"
 const App = () => 
   <Router>
 
-    <nav>
-      <Link to="/">Home</Link>
-      <Link to="/login">Log in</Link>
-    </nav>
-
     <Route path="/" exact>
       <Index/>
     </Route>
