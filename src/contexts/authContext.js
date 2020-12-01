@@ -7,14 +7,18 @@ export const AuthProvider = ({
 }) => {
 
     const [user, setUser] = useState(false)
+    const [loaded, setLoaded] = useState(false)
+
+    console.log(loaded, user)
 
     useEffect(() => {
         fetch("/api/auth/me")
-          .then(res => res.json())
-          .then(data => {
-            if(data.user) setUser(data.user)
-          })
-      }, [])
+            .then(res => res.json())
+            .then(data => {
+                if(data.user) setUser(data.user)
+                setLoaded(true)
+            })
+    }, [])
 
     const logOut = async () => {
         await fetch("/api/auth/logout", {
@@ -27,6 +31,7 @@ export const AuthProvider = ({
         <AuthContext.Provider
             value={{
                 user: user,
+                loaded: loaded,
                 logOut: logOut
             }}
         >

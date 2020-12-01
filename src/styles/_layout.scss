@@ -1,0 +1,95 @@
+.ct-layout{
+    &__sidebar{
+        padding: 25px;
+        background-color: $yellow;
+    }
+
+    &__main-content{
+        padding: 25px;
+    }
+
+    @media screen and (min-width: 800px){
+        display: flex;
+        flex-direction: row;
+        height: 100vh;
+
+        &__sidebar{
+            padding: 35px;
+            min-width: 270px;
+            flex-shrink: 0;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    
+        &__main-content{
+            padding: 25px 10vw;
+        }
+    }
+}
+
+
+.ct-menu{
+    margin: 0;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 35px;
+
+    &__nav-link{
+        color: $black;
+        cursor: pointer;
+        display: inline-block;
+        background: none;
+        border: none;
+        font-size: 1.4rem;
+        text-decoration: none;
+        margin-bottom: 20px;
+        padding: 0;
+        &:hover{
+            text-decoration: underline;
+        }
+
+        &--active{
+            font-weight: bold;
+        }
+    }
+}
+
+
+.ct-user-card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &__icon{
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        margin-right: 15px;
+    }
+
+    &__username{
+        margin-top: 0;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    &__action{
+        background: none;
+        border: none;
+        font-size: 1rem;
+        color: $black;
+        padding: 0;
+        cursor: pointer;
+        text-decoration: underline;
+        &:hover{
+            text-decoration: none;
+        }
+        &:focus{
+            color: $white;
+            background: $black;
+            outline: 3px solid $black;
+        }
+    }
+}
