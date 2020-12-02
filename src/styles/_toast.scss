@@ -1,0 +1,36 @@
+.ct-toasts{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+
+    &__toast{
+        background: $black;
+        color: $white;
+        font-size: 1.1rem;
+        padding: 15px 25px;
+        animation: toasty 5s ease-in-out;
+        min-width: 250px;
+        border-radius: 1px;
+        margin-top: 10px;
+    }
+}
+
+
+@keyframes toasty{
+    0%{
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    3%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    97%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100%{
+        opacity: 0;
+        transform: translateY(5px);
+    }
+}

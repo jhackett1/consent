@@ -1,10 +1,16 @@
 @import "vars";
 @import "globals";
 
+// reusable components
 @import "button";
 @import "field";
 @import "sidebar";
 @import "skip-link";
 @import "layout";
-@import "login";
 @import "loader";
+@import "datapanel";
+@import "toast";
+
+// one-off layouts
+@import "login";
+@import "projects";
