@@ -6,6 +6,7 @@ import Field from "../components/Field"
 import { Link, useHistory } from "react-router-dom"
 import logo from "./logo.svg"
 import { Helmet } from "react-helmet"
+import { useAuth } from "../contexts/authContext"
 
 const schema = Yup.object().shape({
     email: Yup.string()
@@ -17,7 +18,8 @@ const schema = Yup.object().shape({
 
 const Login = () => {
     const history = useHistory()
-
+    const { user, logIn } = useAuth()
+    
     return(
         <div className="ct-login">
             <Helmet>
@@ -31,16 +33,7 @@ const Login = () => {
                     validationSchema={schema}
                     onSubmit={async values => {
                         try{
-                            const res = await fetch("/api/auth/login", {
-                                method: "POST",
-                                body: JSON.stringify(values),
-                                headers: {
-                                    "Content-Type": "application/json"
-                                }
-                            })
-                            if(res.status === 201){
-                                history.push("/")
-                            }
+                            await logIn(values)
                         } catch(err) {
                         }
                     }}

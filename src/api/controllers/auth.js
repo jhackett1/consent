@@ -19,7 +19,9 @@ module.exports = {
             req.session.user = user
 
             res.status(201)
-            res.json(user)
+            res.json({
+                user: user
+            })
 
         } catch(err){
             next(err)
