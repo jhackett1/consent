@@ -21,6 +21,7 @@ const Projects = () => {
         <h1>Projects</h1>
         <Link className="ct-button ct-button--new" to="/projects/new">New project</Link>
       </header>
+      
       <ul className="ct-project-list">
         {projects.map(project => 
           <li className="ct-project-list__item" key={project.id}>
@@ -31,8 +32,9 @@ const Projects = () => {
           </li>
         )}
       </ul>
+
       <footer className="ct-datapanel__footer">
-        Version 0.1 — Thank you for using Consent
+        <p>Version 0.1 — Thank you for using Consent</p>
       </footer>
 
       <Route path="/projects/new" exact>

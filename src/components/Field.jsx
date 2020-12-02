@@ -4,6 +4,7 @@ import { Field as FormikField } from "formik"
 const Field = ({
     label,
     name,
+    type,
     errors
 }) =>
     <div className="ct-field">
@@ -13,6 +14,7 @@ const Field = ({
         <FormikField 
             name={name} 
             id={name} 
+            type={type || "text"}
             aria-describedby={errors && `${name}-error`}
         />
         {errors && 

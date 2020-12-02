@@ -40,8 +40,8 @@ const Login = () => {
                 >
                     {({errors, touched}) =>
                         <Form>
-                            <Field label="Email" name="email" errors= {touched.email ? errors.email : null}/>
-                            <Field label="Password" name="password" errors= {touched.password ? errors.password : null}/>
+                            <Field label="Email" name="email" type="email" errors= {touched.email ? errors.email : null}/>
+                            <Field label="Password" name="password" type="password" errors= {touched.password ? errors.password : null}/>
         
                             <button className="ct-button">Log in</button>
                         </Form>

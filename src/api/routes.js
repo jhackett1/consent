@@ -9,11 +9,11 @@ router.post("/auth/login", login)
 router.get("/auth/me", me)
 router.delete("/auth/logout", logout)
 
-router.get("/projects", projects.index)
-router.get("/projects/:id", projects.show)
-router.post("/projects", projects.create)
-router.put("/projects", projects.update)
-router.delete("/projects", projects.destroy)
+router.get("/projects", authenticated, projects.index)
+router.get("/projects/:id", authenticated, projects.show)
+router.post("/projects", authenticated, projects.create)
+router.put("/projects", authenticated, projects.update)
+router.delete("/projects", authenticated, projects.destroy)
 
 router.use((error, req, res, next) => {
     res.status(400)

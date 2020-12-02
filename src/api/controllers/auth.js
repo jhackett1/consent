@@ -54,6 +54,20 @@ module.exports = {
         }
     },
 
+    authenticated: async (req, res, next) => {
+        try{
+            if(!req?.session?.user?.id) throw new ApiError("You're not logged in", 400)
+            const user = await db.user.findFirst({where: { id: req.session.user.id }})
+            if(user) {
+                next()
+            } else {
+                throw new ApiError("You're not logged in", 400)
+            }
+        } catch(err){
+            next(err)
+        }
+    },
+
     register: async (req, res, next) => {
         try{
             const {email, name, password} = req.body
