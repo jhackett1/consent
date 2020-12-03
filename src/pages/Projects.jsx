@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react"
+import React, { Suspense, useState, useEffect } from "react"
 import Helmet from "react-helmet"
-import Layout from "../components/Layout"
-import { Route, Link } from "react-router-dom"
+import { Route, Link, useLocation  } from "react-router-dom"
+
+const NewProject = React.lazy(() => import('./NewProject'))
 
 const Projects = () => {
   const [ projects, setProjects ] = useState([])
+  const location = useLocation()
 
   useEffect(() => {
     fetch("/api/v1/projects") 
       .then(res => res.json())
       .then(data => setProjects(data))
-  }, [])
+  }, [location])
 
   return(
     <>
@@ -37,9 +39,9 @@ const Projects = () => {
         <p>Version 0.1 — Thank you for using Consent</p>
       </footer>
 
-      <Route path="/projects/new" exact>
-        ghrjls
-      </Route>
+      <Suspense fallback={<></>}>
+        <Route path="/projects/new" exact component={NewProject}/>
+      </Suspense>
     </>
   )
 }

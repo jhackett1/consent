@@ -31,12 +31,7 @@ const Login = () => {
                 <Formik
                     initialValues={{ email: "jaye.hackett@gmail.com", password: "my-password" }}
                     validationSchema={schema}
-                    onSubmit={async values => {
-                        try{
-                            await logIn(values)
-                        } catch(err) {
-                        }
-                    }}
+                    onSubmit={values => logIn(values)}
                 >
                     {({errors, touched}) =>
                         <Form>

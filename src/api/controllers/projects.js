@@ -24,7 +24,19 @@ module.exports = {
     },
 
     create: async (req, res, next) => {
-
+        try{
+            const project = await db.project.create({ data: {
+                name: req.body.name,
+                team: {
+                    connect: { id: 1 }
+                }
+            }})
+            res.status(201)
+            res.json(project)
+        } catch(err) {
+            console.log(err)
+            next(err)
+        }
     },
 
     update: async (req, res, next) => {
