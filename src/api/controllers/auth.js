@@ -10,7 +10,12 @@ module.exports = {
         try{
             const {email, password} = req.body
             if(!email || !password) throw new ApiError("Email and password are required", 400)
-            const user = await db.user.findFirst({where: { email: email }})
+            const user = await db.user.findFirst({
+                where: { email: email },
+                include: {
+                    team: true
+                }
+            })
             if(!user) throw new ApiError("User and password doesn't match", 401)
             const match = await bcrypt.compare(password, user.password_digest)
             if(!match) throw new ApiError("User and password doesn't match", 401)
@@ -18,7 +23,7 @@ module.exports = {
 
             req.session.user = user
 
-            res.status(201)
+            res.status(200)
             res.json({
                 user: user
             })
@@ -43,9 +48,14 @@ module.exports = {
     me: async (req, res, next) => {
         try{
             if(!req.session.user.id) throw new ApiError("You're not logged in", 400)
-            const user = await db.user.findFirst({where: { id: req.session.user.id }})
+            const user = await db.user.findFirst({
+                where: { id: req.session.user.id },
+                include: {
+                    team: true
+                },
+            })
             delete user.password_digest
-            res.status(201)
+            res.status(200)
             res.json({
                 user: user
             })

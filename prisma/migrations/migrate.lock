@@ -11,3 +11,7 @@
 20201130003035-fix-session-primary-key
 20201130003244
 20201202201801-add-projects-table
+20201202232750-add-teams
+20201202233020-add-team-references
+20201202233537-consistent-column-names
+20201202233647-remove-default-team-id

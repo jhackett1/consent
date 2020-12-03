@@ -47,9 +47,30 @@
         text-decoration: none;
         margin-bottom: 10px;
         padding: 0;
-        @media screen and (min-width: 700px){
+        position: relative;
+        @media screen and (min-width: 900px){
             font-size: 1.4rem;
             margin-bottom: 20px;
+        }
+
+        &:focus{
+            color: $black;
+            outline: none;
+            background: none;
+            &:before{
+                position: absolute;
+                top: 0;
+                left: -27px;
+                height: 15px;
+                content: "";
+                display: block;
+                width: 10px;
+                background: $black;
+                @media screen and (min-width: 900px){
+                    left: -35px;
+                    height: 20px;
+                }
+            }
         }
 
         &:hover{
@@ -98,4 +119,14 @@
             outline: 3px solid $black;
         }
     }
+}
+
+.ct-visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
 }

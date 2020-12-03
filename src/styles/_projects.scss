@@ -1,15 +1,15 @@
 .ct-project-list{
     list-style: none;
     padding-left: 0;
+    margin-bottom: 55px;
 
-    @media screen and (min-width: 700px){
+    @media screen and (min-width: 900px){
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 35px;
     }
     @media screen and (min-width: 1000px){
         grid-template-columns: 1fr 1fr 1fr;
-        margin: 55px 0px;
     }
 
     &__item{
