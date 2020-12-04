@@ -16,3 +16,4 @@
 20201202233537-consistent-column-names
 20201202233647-remove-default-team-id
 20201203222444-project-name-mandatory
+20201204195935-projects-within-teams-must-have-unique-names

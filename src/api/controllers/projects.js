@@ -28,7 +28,7 @@ module.exports = {
             const project = await db.project.create({ data: {
                 name: req.body.name,
                 team: {
-                    connect: { id: 1 }
+                    connect: { id: req.session.user.team.id }
                 }
             }})
             res.status(201)

@@ -1,8 +1,6 @@
 import React from "react"
 import Helmet from "react-helmet"
 import { Link } from "react-router-dom"
-import { useToast } from "../contexts/toastContext"
-
 
 const Stat = () => 
   <div className="ct-stats__item">
@@ -16,8 +14,6 @@ const Stat = () =>
   </div>
 
 const Index = () => {
-
-  const {popToast} = useToast()
 
   return(
     <>

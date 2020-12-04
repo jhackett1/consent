@@ -31,6 +31,7 @@ export const AuthProvider = props => {
         })
         const data = await res.json()
         if(data.user) setUser(data.user)
+        if(data.error) throw new Error(data.error)
     }
 
     const logOut = async () => {

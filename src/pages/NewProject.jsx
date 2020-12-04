@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {Formik, Form} from "formik"
 import Field from "../components/Field"
 import Dialog from "../components/Dialog"
@@ -16,6 +16,7 @@ const schema = Yup.object().shape({
 const NewProject = () => {
     const history = useHistory()
     const { popToast } = useToast()
+    const [ submitError, setSubmitError ] = useState(false)
 
     return(
         <Dialog open={true} title="Create a new project" onDismiss={() => history.push("/projects")}>
@@ -23,21 +24,30 @@ const NewProject = () => {
                 initialValues={{ name: "" }}
                 validationSchema={schema}
                 onSubmit={async values => {
-                    const res = await fetch("/api/v1/projects", {
-                        method: "POST",
-                        body: JSON.stringify(values),
-                        headers: {
-                            "Content-Type": "application/json"
+                    try{
+                        const res = await fetch("/api/v1/projects", {
+                            method: "POST",
+                            body: JSON.stringify(values),
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        })
+                        const data = await res.json()
+                        if(!data.error){
+                            history.push("/projects")
+                            popToast("Your project has been created")
+                        } else {
+                            throw new Error(data.error)
                         }
-                    })
-                    if(res.status === 201){
-                        history.push("/projects")
-                        popToast("Your project has been created")
+                    } catch(err){
+                        console.log(err)
+                        setSubmitError(err.message)
                     }
                 }}
             >
                 {({touched, errors, isSubmitting}) => 
                     <Form>
+                        {submitError && <p className="ct-error">{submitError}</p>}
                         <Field 
                             name="name" 
                             label="Name your project"

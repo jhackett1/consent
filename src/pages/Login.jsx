@@ -1,9 +1,8 @@
-import React from "react"
+import React, { useState } from "react"
 import { Formik, Form } from "formik"
 import * as Yup from "yup"
-import fetch from "isomorphic-unfetch"
 import Field from "../components/Field"
-import { Link, useHistory } from "react-router-dom"
+import { Link } from "react-router-dom"
 import logo from "./logo.svg"
 import { Helmet } from "react-helmet"
 import { useAuth } from "../contexts/authContext"
@@ -17,8 +16,8 @@ const schema = Yup.object().shape({
 })
 
 const Login = () => {
-    const history = useHistory()
-    const { user, logIn } = useAuth()
+    const [submitError, setSubmitError] = useState(false)
+    const { logIn } = useAuth()
     
     return(
         <div className="ct-login">
@@ -31,10 +30,18 @@ const Login = () => {
                 <Formik
                     initialValues={{ email: "jaye.hackett@gmail.com", password: "my-password" }}
                     validationSchema={schema}
-                    onSubmit={values => logIn(values)}
+                    onSubmit={async values => {
+                        try{
+                            await logIn(values)
+                        } catch(err){
+                            setSubmitError(err.message)
+                        }
+                    }}
                 >
                     {({errors, touched}) =>
                         <Form>
+                            {submitError && <p className="ct-error">{submitError}</p>}
+
                             <Field label="Email" name="email" type="email" errors= {touched.email ? errors.email : null}/>
                             <Field label="Password" name="password" type="password" errors= {touched.password ? errors.password : null}/>
         

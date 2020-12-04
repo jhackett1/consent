@@ -16,9 +16,9 @@ module.exports = {
                     team: true
                 }
             })
-            if(!user) throw new ApiError("User and password doesn't match", 401)
+            if(!user) throw new ApiError("That email and password don't match our records", 401)
             const match = await bcrypt.compare(password, user.password_digest)
-            if(!match) throw new ApiError("User and password doesn't match", 401)
+            if(!match) throw new ApiError("That email and password don't match our records", 401)
             delete user.password_digest
 
             req.session.user = user
