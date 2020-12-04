@@ -1,0 +1,50 @@
+.ct-skeleton{
+    display: block;
+    position: relative;
+    overflow: hidden;
+
+    &--project{
+        border-top: 3px solid transparentize($grey, 0.9);
+
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            left: -150px;
+            top: 0;
+            height: 100%;
+            width: 150px;
+            background: linear-gradient(to right, transparent 0%, transparentize($white, 0.5) 50%, transparent 100%);
+            animation: load 1s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+        }
+
+        div{
+            border-radius: 2px;
+            background: transparentize($grey, 0.9);
+        }
+
+        div:first-child{
+            margin-top: 15px;
+            width: 60%;
+            height: 25px;
+        }
+
+        div:last-child{
+            margin-top: 25px;
+            width: 30%;
+            height: 18px;
+            margin-bottom: 25px;
+        }
+    }
+
+}
+
+
+@keyframes load {
+    from {
+        left: -150px;
+    }
+    to   {
+        left: 100%;
+    }
+}
