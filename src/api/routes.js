@@ -4,21 +4,29 @@ const projects = require("./controllers/projects")
 
 const router = Router()
 
-router.post("/auth/register", register)
-router.post("/auth/login", login)
-router.get("/auth/me", me)
-router.delete("/auth/logout", logout)
+const handler = fn => (req, res, next) => {
+    Promise.resolve(fn(req, res, next)).catch((err) => {
+        next(err)
+    })
+}
 
-router.get("/projects", authenticated, projects.index)
-router.get("/projects/:id", authenticated, projects.show)
-router.post("/projects", authenticated, projects.create)
-router.put("/projects", authenticated, projects.update)
-router.delete("/projects", authenticated, projects.destroy)
+router.post("/auth/register", handler(register))
+router.post("/auth/login", handler(login))
+router.delete("/auth/logout", authenticated, handler(logout))
+router.get("/auth/me", authenticated, handler(me))
 
-router.use((error, req, res, next) => {
-    res.status(400)
+router.get("/projects", authenticated, handler(projects.index))
+router.get("/projects/:id", authenticated, handler(projects.show))
+router.post("/projects", authenticated, handler(projects.create))
+router.put("/projects", authenticated, handler(projects.update))
+router.delete("/projects", authenticated, handler(projects.destroy))
+
+router.use((err, req, res, next) => {
+    const status = err.status || 500
+    res.status(status)
     res.json({ 
-        error: process.env.NODE_ENV === "production" ? "An internal error occurred" : error.message 
+        status: status,
+        error: err.message 
     })
 })
 

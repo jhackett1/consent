@@ -29,6 +29,9 @@
 
 .ct-error{
     color: $red;
-    font-size: 0.9rem;
+    margin-top: 0;
     margin-bottom: 25px;
+    &::first-letter{
+        text-transform: capitalize;
+    }
 }

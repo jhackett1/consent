@@ -40,7 +40,6 @@ const NewProject = () => {
                             throw new Error(data.error)
                         }
                     } catch(err){
-                        console.log(err)
                         setSubmitError(err.message)
                     }
                 }}

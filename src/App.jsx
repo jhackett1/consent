@@ -7,6 +7,7 @@ import { useAuth } from "./contexts/authContext"
 import Index from "./pages/Index"
 import Login from "./pages/Login"
 import Projects from "./pages/Projects"
+import Project from "./pages/Project"
 import Layout from "./components/Layout"
 import Loader from "./components/Loader"
 
@@ -24,6 +25,7 @@ const App = () => {
         <Layout>
           <Route path="/" exact component={Index}/>
           <Route path="/projects" component={Projects}/>
+          <Route path="/project/:id" exact component={Project}/>
         </Layout>
         :
         <Login/>

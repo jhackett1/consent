@@ -13,6 +13,19 @@
         margin-bottom: 25px;
     }
 
+    &__header-actions{
+        @media screen and (min-width: 900px){
+            display: flex;
+            flex-direction: row;
+            *{
+                margin-right: 10px;
+                &:last-of-type{
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
     &__title{
         margin-top: 0;
     }
@@ -40,13 +53,15 @@
     &__table{
         width: 100%;
         border-collapse: collapse;
+        color: $black;
+        
         th{
             padding-bottom: 10px;
             text-align: left;
         }
 
         td{
-            padding: 12px 0px;
+            padding: 15px 0px;
             &:last-of-type{
                 text-align: right;
             }
