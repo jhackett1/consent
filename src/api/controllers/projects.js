@@ -15,6 +15,7 @@ module.exports = {
 
     show: async (req, res) => {
         const project = await db.project.findFirst({where: {
+            team_id: req.session.user.team.id,
             id: parseInt(req.params.id)
         }})
         res.json(project)
