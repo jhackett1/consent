@@ -23,7 +23,9 @@ const Projects = () => {
         <Link className="ct-button ct-button--new" to="/projects/new">New project</Link>
       </>
     }>
-
+      <Helmet>
+        <title>Projects | Consent</title>
+      </Helmet>
       <ul className="ct-project-list">
         {projects.length > 0 ?
           <>

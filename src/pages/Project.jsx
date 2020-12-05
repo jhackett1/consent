@@ -29,8 +29,23 @@ const Project = () => {
             </div>
         </>
     }>
+        <Helmet>
+          {project.name && <title>{project.name} | Consent</title>}
+        </Helmet>
         <DataChunk title="Participants"/>
         <DataChunk title="Forms"/>
+
+
+        <section className="ct-data-chunk">
+          <header className="ct-data-chunk__header">
+              <h2 className="ct-data-chunk__title">Manage project</h2>
+          </header>
+          <div>
+            <Link to="#" className="ct-data-chunk__quick-link">Archive project</Link>
+          </div>
+        </section>
+
+
     </DataPanel>
   )
 }

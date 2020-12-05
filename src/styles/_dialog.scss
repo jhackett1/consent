@@ -1,7 +1,6 @@
 .ct-dialog{
-    max-width: 500px;
     position: relative;
-
+    max-width: 500px;
 
     &__close{
         position: absolute;
@@ -19,4 +18,8 @@
             }
         }
     }
+}
+
+[data-reach-dialog-content]{
+    width: 90vw !important;
 }
