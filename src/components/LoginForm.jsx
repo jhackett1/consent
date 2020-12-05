@@ -36,7 +36,7 @@ const LoginForm = ({
                 <Form>
                     <Field label="Email" name="email" type="email" errors= {touched.email ? errors.email : null}/>
                     <Field label="Password" name="password" type="password" errors= {touched.password ? errors.password : null}/>
-                    <button className="ct-button">Log in</button>
+                    <button className="ct-button">Sign in</button>
                 </Form>
             }
         </Formik>   

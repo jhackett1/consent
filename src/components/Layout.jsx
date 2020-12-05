@@ -38,7 +38,7 @@ const Layout = ({
                         <img src={user.picture || userIcon} alt="" className="ct-user-card__icon"/>
                         <div className="ct-user-card__body">
                             <p className="ct-user-card__username">{user.name}</p>
-                            <button onClick={logOut} className="ct-user-card__action">Log out</button>
+                            <button onClick={logOut} className="ct-user-card__action">Sign out</button>
                         </div>
                     </div>
                 </nav>
