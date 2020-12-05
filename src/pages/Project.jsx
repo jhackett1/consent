@@ -24,8 +24,8 @@ const Project = () => {
         <>
             <h1>{project.name}</h1>
             <div className="ct-data-chunk__header-actions">
-                <Link className="ct-button ct-button--new" to="/projects/new">Invite participants</Link>
-                <Link className="ct-button ct-button--new" to="/projects/new">New form</Link>
+                <Link className="ct-button ct-button--new" to="#">Invite participants</Link>
+                <Link className="ct-button ct-button--new" to="#">New form</Link>
             </div>
         </>
     }>
