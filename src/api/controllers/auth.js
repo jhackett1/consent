@@ -2,6 +2,8 @@ const { PrismaClient } = require("@prisma/client")
 const bcrypt = require("bcrypt")
 const ApiError = require("../lib/ApiError")
 const { LoginSchema, RegistrationSchema } = require("../schemas/index")
+const verifyGoogleToken = require("../lib/verifyGoogleToken")
+const { verify } = require("crypto")
 
 const db = new PrismaClient()
 
@@ -22,9 +24,7 @@ module.exports = {
         delete user.password_digest
         req.session.user = user
         res.status(200)
-        res.json({
-            user: user
-        })
+        res.json(user)
     },
 
     logout: async (req, res) => {
@@ -55,9 +55,7 @@ module.exports = {
         })
         delete user.password_digest
         res.status(200)
-        res.json({
-            user: user
-        })
+        res.json(user)
     },
 
     register: async (req, res) => {
@@ -74,5 +72,27 @@ module.exports = {
         req.session.user = newUser
         res.status(201)
         res.json(newUser)
+    },
+
+    google: async (req, res) => {
+        const { token }  = req.body
+        const payload = await verifyGoogleToken(token)
+        const { name, email, picture } = payload
+        const user = await db.user.upsert({
+            where: { email: email },
+            update: { name, picture, team: {
+                connect: { id: 1 }
+            }},
+            create: { name, email, picture, team: {
+                connect: { id: 1 }
+            }},
+            include: {
+                team: true
+            }
+        })
+        delete user.password_digest
+        req.session.user = user
+        res.status(201)
+        res.json(user)
     }
 }

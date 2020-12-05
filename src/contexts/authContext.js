@@ -16,7 +16,7 @@ export const AuthProvider = props => {
         fetch("/api/v1/auth/me")
             .then(res => res.json())
             .then(data => {
-                if(data.user) setUser(data.user)
+                if(!data.error) setUser(data)
                 setLoading(false)
             })
     }, [])
@@ -30,8 +30,23 @@ export const AuthProvider = props => {
             }
         })
         const data = await res.json()
-        if(data.user) setUser(data.user)
         if(data.error) throw new Error(data.error)
+        setUser(data)
+    }
+
+    const googleLogIn = async googleData => {
+        const res = await fetch("/api/v1/auth/google", {
+            method: "POST",
+            body: JSON.stringify({
+                token: googleData.tokenId
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        const data = await res.json()
+        if(data.error) throw new Error(data.error)
+        setUser(data)
     }
 
     const logOut = async () => {
@@ -45,6 +60,7 @@ export const AuthProvider = props => {
         <AuthContext.Provider value={{
             user,
             loading,
+            googleLogIn,
             logIn,
             logOut
         }} {...props}/>

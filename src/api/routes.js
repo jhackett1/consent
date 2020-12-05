@@ -1,5 +1,5 @@
 const { Router } = require("express")
-const { register, login, logout, me, authenticated } = require("./controllers/auth")
+const { register, login, logout, me, authenticated, google } = require("./controllers/auth")
 const projects = require("./controllers/projects")
 
 const router = Router()
@@ -12,6 +12,8 @@ const handler = fn => (req, res, next) => {
 
 router.post("/auth/register", handler(register))
 router.post("/auth/login", handler(login))
+router.post("/auth/google", handler(google))
+
 router.delete("/auth/logout", authenticated, handler(logout))
 router.get("/auth/me", authenticated, handler(me))
 

@@ -9,10 +9,8 @@
     font-size: 1.1rem;
     cursor: pointer;
     text-decoration: none;
-
     &:focus{
         color: $black;
-        background: $yellow;
         outline: 3px solid $black;
     }
     &:hover{
@@ -52,10 +50,15 @@
     }
 
     &--secondary{
+        margin-top: 15px;
         background: $black;
         color: $white;    
         &:hover{
             background: darken($black, 10);
+        }
+        &:focus{
+            color: $white;
+            outline: 3px solid $black;
         }
         &:active{
             background: darken($black, 12);

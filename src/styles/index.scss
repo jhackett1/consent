@@ -5,14 +5,17 @@
 @import "button";
 @import "field";
 @import "skip-link";
-@import "layout";
 @import "loader";
-@import "datapanel";
 @import "toast";
 @import "stats";
 @import "dialog";
-@import "data-chunk";
 @import "skeleton";
+@import "link";
+
+// layout pieces
+@import "layout";
+@import "data-panel";
+@import "data-chunk";
 
 // one-off layouts
 @import "login";

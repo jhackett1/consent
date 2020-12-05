@@ -41,7 +41,7 @@ const Project = () => {
               <h2 className="ct-data-chunk__title">Manage project</h2>
           </header>
           <div>
-            <Link to="#" className="ct-data-chunk__quick-link">Archive project</Link>
+            <Link to="#" className="ct-link ct-data-chunk__quick-link">Archive project</Link>
           </div>
         </section>
 

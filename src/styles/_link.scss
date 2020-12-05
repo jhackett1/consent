@@ -1,0 +1,11 @@
+.ct-link{
+    color: $black;
+    &:hover{
+        text-decoration: none;
+    }
+    &:focus{
+        color: $white;
+        background: $black;
+        outline: 3px solid $black;
+    }
+}

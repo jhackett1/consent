@@ -6,13 +6,15 @@ const DataPanel = ({
     footer
 }) => 
     <>
-        <header className="ct-datapanel__header">
-            {header}
-        </header>
+        {header &&
+            <header className="ct-data-panel__header">
+                {header}
+            </header>
+        }
         
         {children}
 
-        <footer className="ct-datapanel__footer">
+        <footer className="ct-data-panel__footer">
             <p>Version 0.1 — Thank you for using Consent</p>
             {footer}
         </footer>
