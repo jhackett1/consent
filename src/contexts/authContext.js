@@ -1,25 +1,14 @@
 import React, { 
-    useState, 
-    useEffect, 
     createContext, 
     useContext
 } from "react"
+import useSWR, { mutate } from "swr"
 
 const AuthContext = createContext()
 
 export const AuthProvider = props => {
 
-    const [loading, setLoading] = useState(true)
-    const [user, setUser] = useState(false)
-
-    useEffect(() => {
-        fetch("/api/v1/auth/me")
-            .then(res => res.json())
-            .then(data => {
-                if(!data.error) setUser(data)
-                setLoading(false)
-            })
-    }, [])
+    const { data, error } = useSWR(`/api/v1/auth/me`)
 
     const logIn = async values => {
         const res = await fetch("/api/v1/auth/login", {
@@ -31,7 +20,7 @@ export const AuthProvider = props => {
         })
         const data = await res.json()
         if(data.error) throw new Error(data.error)
-        setUser(data)
+        mutate(`/api/v1/auth/me`)
     }
 
     const googleLogIn = async googleData => {
@@ -46,20 +35,20 @@ export const AuthProvider = props => {
         })
         const data = await res.json()
         if(data.error) throw new Error(data.error)
-        setUser(data)
+        mutate(`/api/v1/auth/me`)
     }
 
     const logOut = async () => {
         await fetch("/api/v1/auth/logout", {
             method: "DELETE"
         })
-        setUser(false)
+        mutate(`/api/v1/auth/me`)
     }
 
     return(
         <AuthContext.Provider value={{
-            user,
-            loading,
+            user: data,
+            error,
             googleLogIn,
             logIn,
             logOut

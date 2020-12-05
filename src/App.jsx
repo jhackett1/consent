@@ -16,13 +16,13 @@ import "./styles/index.scss"
 
 const App = () => {
 
-  const { loading, user } = useAuth()
+  const { user, error } = useAuth()
 
-  if(loading) return <Loader/>
+  if(!user && !error) return <Loader/>
 
   return (
     <Router>
-      {user ? 
+      {user && user.id ? 
         <Layout>
           <Route path="/" exact component={Index}/>
           <Route path="/projects" component={Projects}/>

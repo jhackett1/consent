@@ -5,6 +5,7 @@ import Dialog from "../components/Dialog"
 import { useHistory } from "react-router-dom"
 import { useToast } from "../contexts/toastContext"
 import * as Yup from "yup"
+import { mutate } from "swr"
 
 const schema = Yup.object().shape({
     name: Yup.string()
@@ -34,6 +35,7 @@ const NewProject = () => {
                         })
                         const data = await res.json()
                         if(!data.error){
+                            mutate(`/api/v1/projects`)
                             history.push("/projects")
                             popToast("Your project has been created")
                         } else {

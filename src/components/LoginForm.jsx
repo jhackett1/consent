@@ -32,11 +32,11 @@ const LoginForm = ({
                 }
             }}
         >
-            {({errors, touched}) =>
+            {({errors, touched, isSubmitting}) =>
                 <Form>
                     <Field label="Email" name="email" type="email" errors= {touched.email ? errors.email : null}/>
                     <Field label="Password" name="password" type="password" errors= {touched.password ? errors.password : null}/>
-                    <button className="ct-button">Sign in</button>
+                    <button className="ct-button" disabled={isSubmitting}>Sign in</button>
                 </Form>
             }
         </Formik>   

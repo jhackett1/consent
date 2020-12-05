@@ -1,20 +1,15 @@
-import React, { Suspense, useState, useEffect } from "react"
+import React, { Suspense } from "react"
 import Helmet from "react-helmet"
-import { Route, Link, useParams  } from "react-router-dom"
+import { Route, Link } from "react-router-dom"
 import DataPanel from "../components/DataPanel"
 import { ProjectSkeleton } from "../components/Skeleton"
+import useSWR from "swr"
 
 const NewProject = React.lazy(() => import('./NewProject'))
 
 const Projects = () => {
-  const [ projects, setProjects ] = useState([])
-  const params = useParams()
 
-  useEffect(() => {
-    fetch("/api/v1/projects") 
-      .then(res => res.json())
-      .then(data => setProjects(data))
-  }, [params])
+  const { data, error } = useSWR(`/api/v1/projects`)
 
   return(
     <DataPanel header={
@@ -27,9 +22,9 @@ const Projects = () => {
         <title>Projects | Consent</title>
       </Helmet>
       <ul className="ct-project-list">
-        {projects.length > 0 ?
+        {data ?
           <>
-            {projects.map(project => 
+            {data.map(project => 
               <li className="ct-project-list__item" key={project.id}>
                 <Link className="ct-project-list__link" to={`/project/${project.id}`}>
                 <h2>{project.name}</h2>
