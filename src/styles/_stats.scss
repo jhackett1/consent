@@ -15,6 +15,7 @@
     }
 
     &__value{
+        position: relative;
         margin-left: 0;
         color: $black;
         font-size: 1.6rem;
@@ -22,6 +23,31 @@
         @media screen and (min-width: 900px){
             font-size: 2.2rem;
         }
+
+        &--negative:after,
+        &--positive:after{
+            position: absolute;
+            top: 5px;
+            margin-left: 15px;
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            background: $green;
+            @media screen and (min-width: 900px){
+                top: 10px;
+            }
+        }
+
+        &--negative:after{
+            background: $red;
+        }
+
+        &--positive:after{
+            background: $green;
+        }
+
     }
 
     &__caption{

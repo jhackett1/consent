@@ -3,17 +3,7 @@ import Helmet from "react-helmet"
 import { Link } from "react-router-dom"
 import DataPanel from "../components/DataPanel"
 import DataChunk from "../components/DataChunk"
-
-const Stat = () => 
-  <div className="ct-stats__item">
-    <dd className="ct-stats__value">
-      XX
-    </dd>
-    <dt className="ct-stats__caption">
-      Statistic caption
-      <p className="ct-stats__subcaption">In the last 30 days</p>
-    </dt>
-  </div>
+import Stat from "../components/Stat"
 
 const Index = () => {
 
@@ -24,9 +14,9 @@ const Index = () => {
       </Helmet>
 
       <dl className="ct-stats">
-        <Stat/>
-        <Stat/>
-        <Stat/>
+        <Stat direction="negative"/>
+        <Stat direction="positive"/>
+        <Stat direction="positive"/>
       </dl>
 
       <DataChunk/>
