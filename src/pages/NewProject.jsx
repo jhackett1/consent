@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import {Formik, Form} from "formik"
+import { Formik, Form } from "formik"
 import Field from "../components/Field"
 import Dialog from "../components/Dialog"
 import { useHistory } from "react-router-dom"
@@ -15,6 +15,7 @@ const schema = Yup.object().shape({
 })
 
 const NewProject = () => {
+    
     const history = useHistory()
     const { popToast } = useToast()
     const [ submitError, setSubmitError ] = useState(false)

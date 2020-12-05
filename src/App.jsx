@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <Router>
-      {user && user.id ? 
+      {user?.id ? 
         <Layout>
           <Route path="/" exact component={Index}/>
           <Route path="/projects" component={Projects}/>

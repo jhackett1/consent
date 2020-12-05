@@ -22,17 +22,19 @@ These error messages are generally user-friendly and safe to display in the UI.
 
 ## Roadmap
 
-1. refactor fetch requests to use swr
-2. add client-side search to form, participant and project views
-
+- isomorphic schema files
+- add client-side search to form, participant and project views
 - remaining database models
 - participant-facing flow
 - email and sms notifications for participants
 - build proper dashboard
-- add google oauth login
 - add team admin screens
 - users can join many teams
-- refactor fetch requests to use swr
+
+### Done
+
+- refactor fetch requests to use swr (DONE)
+- google oauth
 
 ## Configuration
 

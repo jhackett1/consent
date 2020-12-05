@@ -20,7 +20,7 @@ const Dialog = ({
             className="ct-dialog__close"
             onClick={onDismiss}
         >
-            <img src={close} alt="Close"/>
+            <img src={close} alt="Close" title="Close"/>
         </button>
     </BaseDialog>
 

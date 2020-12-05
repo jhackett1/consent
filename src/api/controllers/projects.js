@@ -37,7 +37,16 @@ module.exports = {
     },
 
     update: async (req, res, next) => {
-
+        await ProjectSchema.validate(req.body)
+        const project = await db.project.update({ 
+            where: { id: parseInt(req.params.id) },
+            data: req.body
+        })
+            .catch(err => {
+                if(err.code === "P2002") throw new ApiError("Each project needs a unique name.", 422)
+            })
+        res.status(200)
+        res.json(project)
     },
 
     destroy: async (req, res, next) => {

@@ -2,13 +2,13 @@ import React, {
     createContext, 
     useContext
 } from "react"
-import useSWR, { mutate } from "swr"
+import useSWR from "swr"
 
 const AuthContext = createContext()
 
 export const AuthProvider = props => {
 
-    const { data, error } = useSWR(`/api/v1/auth/me`)
+    const { data, error, mutate } = useSWR(`/api/v1/auth/me`)
 
     const logIn = async values => {
         const res = await fetch("/api/v1/auth/login", {
@@ -20,7 +20,7 @@ export const AuthProvider = props => {
         })
         const data = await res.json()
         if(data.error) throw new Error(data.error)
-        mutate(`/api/v1/auth/me`)
+        mutate()
     }
 
     const googleLogIn = async googleData => {
@@ -35,14 +35,14 @@ export const AuthProvider = props => {
         })
         const data = await res.json()
         if(data.error) throw new Error(data.error)
-        mutate(`/api/v1/auth/me`)
+        mutate()
     }
 
     const logOut = async () => {
         await fetch("/api/v1/auth/logout", {
             method: "DELETE"
         })
-        mutate(`/api/v1/auth/me`)
+        mutate()
     }
 
     return(

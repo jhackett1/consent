@@ -4,6 +4,7 @@ import { Route, Link, useParams } from "react-router-dom"
 import DataPanel from "../components/DataPanel"
 import { ProjectSkeleton } from "../components/Skeleton"
 import DataChunk from "../components/DataChunk"
+import InlineEditable from "../components/InlineEditable"
 import useSWR from "swr"
 
 const NewProject = React.lazy(() => import('./NewProject'))
@@ -15,7 +16,8 @@ const Project = () => {
   return(
     <DataPanel header={
         <>
-            <h1>{data?.name}</h1>
+            {/* <h1>{data?.name}</h1> */}
+            <InlineEditable initialValue={data?.name}/>
             <div className="ct-data-chunk__header-actions">
                 <Link className="ct-button ct-button--new" to="#">Invite participants</Link>
                 <Link className="ct-button ct-button--new" to="#">New form</Link>

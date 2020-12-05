@@ -20,7 +20,7 @@ router.get("/auth/me", authenticated, handler(me))
 router.get("/projects", authenticated, handler(projects.index))
 router.get("/projects/:id", authenticated, handler(projects.show))
 router.post("/projects", authenticated, handler(projects.create))
-router.put("/projects", authenticated, handler(projects.update))
+router.put("/projects/:id", authenticated, handler(projects.update))
 router.delete("/projects", authenticated, handler(projects.destroy))
 
 router.use((err, req, res, next) => {

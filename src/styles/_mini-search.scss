@@ -1,0 +1,28 @@
+.ct-mini-search{
+    position: relative;
+
+    input{
+        padding-right: 40px;
+    }
+
+
+    &__clear{
+        position: absolute;
+        right: 0;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        &:hover{
+            background: transparentize($black, 0.95)
+        }
+        &:focus{
+            img{
+                filter: brightness(100);
+            }
+            background: $black;
+            outline: none;
+            border-bottom: 1px solid $black;
+        }
+    }
+}
