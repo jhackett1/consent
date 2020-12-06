@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 model Team {
@@ -12,7 +12,7 @@ model Team {
   name String?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  memberships Membership[]
+  users Membership[]
   projects Project[]
 }
 
@@ -35,7 +35,7 @@ model User {
   picture String?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  memberships Membership[]  
+  teams Membership[]  
 }
 
 model Project {

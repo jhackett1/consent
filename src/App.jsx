@@ -9,6 +9,7 @@ import Login from "./pages/Login"
 import Projects from "./pages/Projects"
 import Project from "./pages/Project"
 import Forms from "./pages/Forms"
+import Profile from "./pages/Profile"
 import Layout from "./components/Layout"
 import Loader from "./components/Loader"
 
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/projects" component={Projects}/>
           <Route path="/project/:id" component={Project}/>
           <Route path="/forms" exact component={Forms}/>
+          <Route path="/profile" component={Profile}/>
         </Layout>
         :
         <Login/>

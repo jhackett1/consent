@@ -106,9 +106,17 @@
     }
 
     &__username{
+        display: block;
+        color: $black;
         margin-top: 0;
         font-size: 1.1rem;
         margin-bottom: 10px;
+        text-decoration: none;
+        &:focus{
+            color: $white;
+            background: $black;
+            outline: 3px solid $black;
+        }
         @media screen and (min-width: 900px){
             font-size: 1.2rem;
         }

@@ -1,5 +1,5 @@
 import React from "react"
-import { NavLink } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import userIcon from "./user.svg"
 import { useAuth } from "../contexts/authContext"
 
@@ -37,7 +37,7 @@ const Layout = ({
                     <div className="ct-user-card">
                         <img src={user.picture || userIcon} alt="" className="ct-user-card__icon"/>
                         <div className="ct-user-card__body">
-                            <p className="ct-user-card__username">{user.name}</p>
+                            <Link to="/profile" className="ct-user-card__username">{user.name}</Link>
                             <button onClick={logOut} className="ct-user-card__action">Sign out</button>
                         </div>
                     </div>

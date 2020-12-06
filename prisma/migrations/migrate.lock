@@ -19,3 +19,6 @@
 20201204195935-projects-within-teams-must-have-unique-names
 20201205011023-add-activity-table
 20201205163455-add-picture-to-user
+20201206132712-add-membershipmodel
+20201206132903-admin-false-by-default
+20201206142847-rename-membership-relations

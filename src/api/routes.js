@@ -1,6 +1,7 @@
 const { Router } = require("express")
 const { register, login, logout, me, authenticated, google } = require("./controllers/auth")
 const projects = require("./controllers/projects")
+const teams = require("./controllers/teams")
 
 const router = Router()
 
@@ -23,7 +24,14 @@ router.post("/projects", authenticated, handler(projects.create))
 router.put("/projects/:id", authenticated, handler(projects.update))
 router.delete("/projects", authenticated, handler(projects.destroy))
 
+router.get("/teams", authenticated, handler(teams.index))
+router.get("/teams/:id", authenticated, handler(teams.show))
+router.post("/teams", authenticated, handler(teams.create))
+router.put("/teams/:id", authenticated, handler(teams.update))
+router.delete("/teams", authenticated, handler(teams.destroy))
+
 router.use((err, req, res, next) => {
+    console.log(err)
     const status = err.status || 500
     res.status(status)
     res.json({ 

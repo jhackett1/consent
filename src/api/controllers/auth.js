@@ -15,7 +15,7 @@ module.exports = {
         const user = await db.user.findFirst({
             where: { email: email },
             include: {
-                team: true
+                teams: true
             }
         })
         if(!user) throw new ApiError("That email and password don't match our records", 401)
@@ -23,6 +23,7 @@ module.exports = {
         if(!match) throw new ApiError("That email and password don't match our records", 401)
         delete user.password_digest
         req.session.user = user
+        req.session.team = user.teams[0]
         res.status(200)
         res.json(user)
     },
@@ -50,8 +51,13 @@ module.exports = {
         const user = await db.user.findFirst({
             where: { id: req.session.user.id },
             include: {
-                team: true
-            },
+                memberships: {
+                    select:{
+                        admin: true,
+                        team: true
+                    }
+                }
+            }
         })
         delete user.password_digest
         res.status(200)
