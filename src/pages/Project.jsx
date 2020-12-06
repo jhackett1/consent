@@ -1,13 +1,11 @@
-import React, { Suspense} from "react"
+import React from "react"
 import Helmet from "react-helmet"
 import { Route, Link, useParams } from "react-router-dom"
 import DataPanel from "../components/DataPanel"
-import { ProjectSkeleton } from "../components/Skeleton"
-import DataChunk from "../components/DataChunk"
-import InlineEditable from "../components/InlineEditable"
-import useSWR from "swr"
 
-const NewProject = React.lazy(() => import('./NewProject'))
+import DataChunk from "../components/DataChunk"
+import EditProject from "./EditProject"
+import useSWR from "swr"
 
 const Project = () => {
   const params = useParams()
@@ -16,8 +14,11 @@ const Project = () => {
   return(
     <DataPanel header={
         <>
-            {/* <h1>{data?.name}</h1> */}
-            <InlineEditable initialValue={data?.name}/>
+            <div>
+              <h1>{data?.name}</h1>
+              <Link to={`/project/${params.id}/edit`} className="ct-link">Edit?</Link>
+            </div>
+
             <div className="ct-data-chunk__header-actions">
                 <Link className="ct-button ct-button--new" to="#">Invite participants</Link>
                 <Link className="ct-button ct-button--new" to="#">New form</Link>
@@ -41,6 +42,9 @@ const Project = () => {
           </div>
         </section>
 
+        <Route path="/project/:id/edit">
+          <EditProject project={data}/>
+        </Route>
 
     </DataPanel>
   )

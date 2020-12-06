@@ -26,7 +26,7 @@ const App = () => {
         <Layout>
           <Route path="/" exact component={Index}/>
           <Route path="/projects" component={Projects}/>
-          <Route path="/project/:id" exact component={Project}/>
+          <Route path="/project/:id" component={Project}/>
           <Route path="/forms" exact component={Forms}/>
         </Layout>
         :

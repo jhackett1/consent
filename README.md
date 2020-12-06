@@ -41,3 +41,4 @@ These error messages are generally user-friendly and safe to display in the UI.
 The server needs:
 
 - `SESSION_SECRET`, a random string used to secure session cookies
+- `GOOGLE_CLIENT_ID` and `REACT_APP_GOOGLE_CLIENT_ID`, for allowing users to sign in with Google

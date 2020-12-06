@@ -30,6 +30,7 @@ module.exports = {
             }
         }})
             .catch(err => {
+                console.log(err)
                 if(err.code === "P2002") throw new ApiError("Each project needs a unique name.", 422)
             })
         res.status(201)

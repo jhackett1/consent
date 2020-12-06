@@ -6,8 +6,7 @@ import MiniSearch from "../components/MiniSearch"
 import ProjectsList from "../components/ProjectsList"
 import { ProjectSkeleton } from "../components/Skeleton"
 import useSWR from "swr"
-
-const NewProject = React.lazy(() => import('./NewProject'))
+import NewProject from "./NewProject"
 
 const Projects = () => {
 
@@ -34,9 +33,8 @@ const Projects = () => {
         search={search}
       />
 
-      <Suspense fallback={<></>}>
-        <Route path="/projects/new" exact component={NewProject}/>
-      </Suspense>
+      <Route path="/projects/new" exact component={NewProject}/>
+
     </DataPanel>
   )
 }
