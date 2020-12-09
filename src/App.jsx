@@ -4,7 +4,6 @@ import {
   Route,
   Switch
 } from "react-router-dom"
-import { TeamProvider } from "./contexts/teamContext"
 import { useAuth } from "./contexts/authContext"
 import Index from "./pages/Index"
 import Login from "./pages/Login"
