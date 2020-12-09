@@ -1,8 +1,14 @@
 const { Router } = require("express")
-const { register, login, logout, me, authenticated, google } = require("../controllers/auth")
+const { async, errorHandler, fallbackHandler } = require("./_handlers")
+const { 
+    register, 
+    login, 
+    logout, 
+    me, 
+    authenticated, 
+    google 
+} = require("../controllers/auth")
 const projects = require("../controllers/projects")
-const async = require("./_asyncHandler")
-const { errorHandler, fallbackHandler } = require("./_handlers")
 
 const rtr = Router()
 
