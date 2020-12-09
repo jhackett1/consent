@@ -55,7 +55,7 @@ module.exports = {
     },
 
     authenticated: async (req, res, next) => {
-        if(!req?.session?.userId) throw new ApiError("You're not logged in", 400)
+        if(!req?.session?.userId) throw new ApiError("You're not logged in", 401)
         const user = await db.user.findFirst({
             where: { id: req.session.userId },
             include: {
@@ -67,9 +67,10 @@ module.exports = {
                 }
             }
         })
-        if(!user) throw new ApiError("You're not logged in", 400)
+        if(!user) throw new ApiError("You're not logged in", 401)
         delete user.password_digest
         req.user = user
+        req.allowed_teams = req.user.memberships.map(m => m.team.id)
         next()
     },
 

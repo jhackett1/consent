@@ -13,8 +13,8 @@ model Team {
   created_at DateTime     @default(now())
   updated_at DateTime     @updatedAt
   slug       String       
-  Activity   Activity[]
-  Membership Membership[]
+  activity   Activity[]
+  membership Membership[]
   projects   Project[]
 }
 
@@ -47,7 +47,7 @@ model Project {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   team_id    Int
-  Team       Team     @relation(fields: [team_id], references: [id])
+  team       Team     @relation(fields: [team_id], references: [id])
 
   @@unique([name, team_id], name: "Project.name_team_id_unique")
 }
@@ -58,7 +58,7 @@ model Activity {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   team_id    Int
-  Team       Team     @relation(fields: [team_id], references: [id])
+  team       Team     @relation(fields: [team_id], references: [id])
 
   @@unique([name, team_id], name: "Activity.name_team_id_unique")
 }

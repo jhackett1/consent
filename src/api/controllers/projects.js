@@ -7,13 +7,16 @@ const db = new PrismaClient()
 
 module.exports = {
     authorised: async (req, res, next) => {
-        // check that the user is trying to modify a project they're allowed to
+        if(!req.allowed_teams.includes(parseInt(req.params.teamId))){
+            throw new ApiError("You don't have permission to view that.", 401)
+        }
         next()
     },
 
     index: async (req, res) => {
+        console.log(req.params)
         const projects = await db.project.findMany({where: {
-            Team: {
+            team: {
                 id: parseInt(req.params.teamId)
             }
         }})
@@ -23,9 +26,9 @@ module.exports = {
     show: async (req, res) => {
         const project = await db.project.findFirst({where: {
             id: parseInt(req.params.id),
-            Team: {
+            team: {
                 id: {
-                    in: req.user.memberships.map(m => m.team.id)
+                    in: req.allowed_teams
                 }
             }
         }})
@@ -33,9 +36,6 @@ module.exports = {
     },
 
     create: async (req, res) => {
-        if(!res.locals.teams.includes(parseInt(req.params.teamId))){
-            throw new ApiError("You don't have permission to view that team's projects.", 400)
-        }
         await ProjectSchema.validate(req.body)
         const project = await db.project.create({ data: {
             name: req.body.name,
@@ -59,11 +59,10 @@ module.exports = {
                 id: parseInt(req.params.id),
                 team_id: {
                         in: res.locals.teams
-
                 }
              },
             data: {
-                name: req.body.name
+                name: name
             }
         })
             .catch(err => {
