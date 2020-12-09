@@ -4,9 +4,9 @@ import React, {
 } from "react"
 import useSWR from "swr"
 
-const AuthContext = createContext()
+const AuthContext = createContext(false)
 
-export const AuthProvider = props => {
+export const AuthProvider = (props: Props): React.FC => {
 
     const { data, error, mutate } = useSWR(`/api/v1/auth/me`)
 
@@ -48,12 +48,16 @@ export const AuthProvider = props => {
     return(
         <AuthContext.Provider value={{
             user: data,
-            error,
-            googleLogIn,
-            logIn,
-            logOut
+            error: error,
+            googleLogIn: googleLogIn,
+            logIn: logIn,
+            logOut: logOut
         }} {...props}/>
     )
+}
+
+interface Props {
+    children: React.ReactNode
 }
 
 export const useAuth = () => useContext(AuthContext)

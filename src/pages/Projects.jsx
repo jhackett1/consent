@@ -1,6 +1,6 @@
-import React, { Suspense, useState } from "react"
+import React, { Suspense, useState, useEffect } from "react"
 import Helmet from "react-helmet"
-import { Route, Link } from "react-router-dom"
+import { Route, Link, useParams } from "react-router-dom"
 import DataPanel from "../components/DataPanel"
 import MiniSearch from "../components/MiniSearch"
 import ProjectsList from "../components/ProjectsList"
@@ -10,8 +10,9 @@ import NewProject from "./NewProject"
 
 const Projects = () => {
 
+  const { teamId } = useParams()
   const [search, setSearch] = useState("")
-  const { data, error } = useSWR(`/api/v1/projects`)
+  const { data, error } = useSWR(`/api/v1/team/${teamId}/projects`)
 
   return(
     <DataPanel header={

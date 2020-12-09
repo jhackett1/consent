@@ -7,9 +7,9 @@ import App from "./App"
 ReactDOM.render(
   <React.StrictMode>
       <AuthProvider>
-        <ToastProvider>
-          <App/>
-        </ToastProvider>
+          <ToastProvider>
+            <App/>
+          </ToastProvider>
       </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")

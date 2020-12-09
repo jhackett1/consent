@@ -4,7 +4,7 @@ import DataPanel from "../components/DataPanel"
 import { useAuth } from "../contexts/authContext"
 
 const Profile = () => {
-    const { user } = useAuth()
+    const { user, logOut } = useAuth()
 
     return (
         <DataPanel header={
@@ -20,14 +20,14 @@ const Profile = () => {
 
             <Route path="/profile" exact>
                 Profile
+
+                <button className="ct-button ct-button--secondary" onClick={logOut}>Sign out</button>
             </Route>
 
             <Route path="/profile/teams" exact>
-                <ul>
-                    {user.memberships.map(membership =>
-                        <li>{membership.team.name}</li>
-                    )}
-                </ul>
+                {user.memberships.map(membership =>
+                    <h2 key={membership.team.id}>{membership.team.name}</h2>
+                )}
             </Route>
         </DataPanel>
     )

@@ -2,6 +2,8 @@ import React from "react"
 import { Link, NavLink } from "react-router-dom"
 import userIcon from "./user.svg"
 import { useAuth } from "../contexts/authContext"
+import TeamPicker from "../components/TeamPicker"
+import { useParams } from "react-router-dom"
 
 const NavItem = ({ to, children }) =>
     <li>
@@ -19,6 +21,7 @@ const Layout = ({
     children
 }) => {
 
+    const { teamId } = useParams()
     const { user, logOut } = useAuth()
 
     return(
@@ -29,16 +32,18 @@ const Layout = ({
             <div className="ct-layout"> 
                 <nav className="ct-layout__sidebar">
                     <ul className="ct-menu">
-                        <NavItem to="/">Dashboard</NavItem>
-                        <NavItem to="/projects">Projects</NavItem>
-                        <NavItem to="/forms">Forms</NavItem>
-                        <NavItem to="/participants">Participants</NavItem>
+                        <NavItem to={`/team/${teamId}/`}>Dashboard</NavItem>
+                        <NavItem to={`/team/${teamId}/projects`}>Projects</NavItem>
+                        <NavItem to={`/team/${teamId}/forms`}>Forms</NavItem>
+                        <NavItem to={`/team/${teamId}/participants`}>Participants</NavItem>
                     </ul>
+
                     <div className="ct-user-card">
                         <img src={user.picture || userIcon} alt="" className="ct-user-card__icon"/>
                         <div className="ct-user-card__body">
                             <Link to="/profile" className="ct-user-card__username">{user.name}</Link>
-                            <button onClick={logOut} className="ct-user-card__action">Sign out</button>
+                            <TeamPicker/>
+                            {/* <button onClick={logOut} className="ct-user-card__action">Sign out</button> */}
                         </div>
                     </div>
                 </nav>
