@@ -1,6 +1,6 @@
 import React from "react"
 import { Link, NavLink } from "react-router-dom"
-import userIcon from "./user.svg"
+import userIcon from "../assets/user.svg"
 import { useAuth } from "../contexts/authContext"
 import TeamPicker from "../components/TeamPicker"
 import { useParams } from "react-router-dom"

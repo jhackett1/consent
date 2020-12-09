@@ -1,7 +1,7 @@
 import React from "react"
 import { Dialog as BaseDialog } from "@reach/dialog"
 import "@reach/dialog/styles.css";
-import close from "./close.svg"
+import close from "../assets/close.svg"
 
 const Dialog = ({
     open,
