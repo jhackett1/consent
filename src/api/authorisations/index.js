@@ -2,12 +2,20 @@ const ApiError = require("../lib/ApiError")
 
 module.exports = {
 
-    // Check that the user is requesting resources from a team they are a member of
+    // Check that the user is a MEMBER of the team they're trying to access
     seeTeam: req => {
-        const allowed_teams = req.user.memberships.map(m => m.team.id)
-        if(!allowed_teams.includes(parseInt(req.params.teamId))){
-            throw new ApiError("You don't have permission to view that", 401)
-        }
+        const allowedTeams = req.user.memberships.map(m => m.team.id)
+        if(!allowedTeams.includes(parseInt(req.params.teamId)))
+            throw new ApiError("You don't have permission to do that", 401)
+    },
+
+    // Check that the user can ADMINISTER the team they're trying to administer
+    administerTeam: req => {
+        const administeredTeams = req.user.memberships
+            .filter(m => m.admin)
+            .map(m => m.team.id)
+        if(!administeredTeams.includes(parseInt(req.params.teamId)))
+            throw new ApiError("You don't have permission to do that", 401)
     }
 
 }

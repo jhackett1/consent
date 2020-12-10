@@ -55,8 +55,7 @@ module.exports = {
         const { name } = req.body
         const project = await db.project.update({ 
             where: { 
-                id: parseInt(req.params.id),
-                team_id: parseInt(req.params.teamId)
+                id: parseInt(req.params.id)
              },
             data: {
                 name: name
