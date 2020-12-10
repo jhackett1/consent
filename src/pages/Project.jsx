@@ -8,15 +8,15 @@ import EditProject from "./EditProject"
 import useSWR from "swr"
 
 const Project = () => {
-  const params = useParams()
-  const { data, error } = useSWR(`/api/v1/projects/${params.id}`)
+  const { teamId, id } = useParams()
+  const { data, error } = useSWR(`/api/v1/team/${teamId}/projects/${id}`)
 
   return(
     <DataPanel header={
         <>
             <div>
               <h1>{data?.name}</h1>
-              <Link to={`/project/${params.id}/edit`} className="ct-link">Edit?</Link>
+              <Link to={`/team/${teamId}/project/${id}/edit`} className="ct-link">Edit?</Link>
             </div>
 
             <div className="ct-data-chunk__header-actions">
@@ -42,7 +42,7 @@ const Project = () => {
           </div>
         </section>
 
-        <Route path="/project/:id/edit">
+        <Route path="/team/:teamId/project/:id/edit">
           <EditProject project={data}/>
         </Route>
 

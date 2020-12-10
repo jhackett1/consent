@@ -22,11 +22,11 @@ const EditProject = ({
     const { popToast } = useToast()
     const [ submitError, setSubmitError ] = useState(false)
 
-    return(
+    if(project) return(
         <Dialog 
             open={true} 
             title="Create a new project" 
-            onDismiss={() => history.push(`/project/${project.id}`)}
+            onDismiss={() => history.push(`/team/${project.team.id}/project/${project.id}`)}
         >
             <Formik
                 initialValues={{
@@ -34,7 +34,7 @@ const EditProject = ({
                 }}
                 validationSchema={schema}
                 onSubmit={async values => {
-                    const res = await fetch(`/api/v1/projects/${project.id}`, {
+                    const res = await fetch(`/api/v1/team/${project.team.id}/projects/${project.id}`, {
                         method: "PUT",
                         body: JSON.stringify(values),
                         headers: {
@@ -43,8 +43,8 @@ const EditProject = ({
                     })
                     const data = await res.json()
                     if(!data.error){
-                        history.push(`/project/${project.id}`)
-                        mutate(`/api/v1/projects/${project.id}`)
+                        history.push(`/team/${project.team.id}/project/${project.id}`)
+                        mutate(`/api/v1/team/${project.team.id}/projects/${project.id}`)
                         popToast("Project name updated")
                     } else {
                         setSubmitError(data.error)
@@ -65,6 +65,8 @@ const EditProject = ({
             </Formik>
         </Dialog>
     )
+
+    return <p>Loading...</p>
 }
 
 export default EditProject

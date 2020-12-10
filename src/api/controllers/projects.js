@@ -18,12 +18,17 @@ module.exports = {
 
     show: async (req, res) => {
         can.seeTeam(req)
-        const project = await db.project.findFirst({where: {
-            id: parseInt(req.params.id),
-            team: {
-                id: parseInt(req.params.teamId)
+        const project = await db.project.findFirst({
+            where: {
+                id: parseInt(req.params.id),
+                team: {
+                    id: parseInt(req.params.teamId)
+                }
+            },
+            include: {
+                team: true
             }
-        }})
+    })
         res.json(project)
     },
 
