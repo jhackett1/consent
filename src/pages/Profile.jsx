@@ -2,25 +2,21 @@ import React from "react"
 import { Route, NavLink } from "react-router-dom"
 import DataPanel from "../components/DataPanel"
 import { useAuth } from "../contexts/authContext"
+import ProfileForm from "../components/ProfileForm"
 
 const Profile = () => {
     const { user, logOut } = useAuth()
 
     return (
         <DataPanel header={
-            <h1>{user.name}</h1>
-        }>
-
-            {user.email}
-
-            <nav>
-                <NavLink to="/profile">Profile</NavLink>
+            <nav className="ct-sub-nav">
+                <NavLink to="/profile" exact>Profile</NavLink>
                 <NavLink to="/profile/teams">Teams</NavLink>
             </nav>
+        }>
 
             <Route path="/profile" exact>
-                Profile
-
+                <ProfileForm/>
                 <button className="ct-button ct-button--secondary" onClick={logOut}>Sign out</button>
             </Route>
 

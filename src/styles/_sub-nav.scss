@@ -1,0 +1,27 @@
+.ct-sub-nav{
+    a{
+        font-size: 1.3rem;
+        text-decoration: none;
+        margin-right: 15px;
+        color: $black;
+
+        &[aria-current]{
+            font-weight: bold;
+            color: $black;
+        }
+
+        &:hover{
+            color: $grey;
+        }
+        &:focus{
+            color: $white;
+            background: $black;
+            outline: 3px solid $black;
+        }
+
+
+        @media screen and (min-width: 900px){
+            font-size: 2rem;
+        }
+    }
+}

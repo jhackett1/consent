@@ -14,7 +14,7 @@ const Project = () => {
   return(
     <DataPanel header={
         <>
-            <div>
+            <div className="ct-inline-editable">
               <h1>{data?.name}</h1>
               <Link to={`/team/${teamId}/project/${id}/edit`} className="ct-link">Edit?</Link>
             </div>

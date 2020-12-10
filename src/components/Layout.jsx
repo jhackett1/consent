@@ -42,8 +42,8 @@ const Layout = ({
                         <img src={user.picture || userIcon} alt="" className="ct-user-card__icon"/>
                         <div className="ct-user-card__body">
                             <Link to="/profile" className="ct-user-card__username">{user.name}</Link>
+                            <br/>
                             <TeamPicker/>
-                            {/* <button onClick={logOut} className="ct-user-card__action">Sign out</button> */}
                         </div>
                     </div>
                 </nav>

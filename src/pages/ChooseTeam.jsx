@@ -15,11 +15,14 @@ const Login = () => {
 
             <h1 className="ct-login__title">Choose a team</h1>
 
-            <ul>
+            <ul className="ct-team-list">
                 {user.memberships.map(membership => 
                     <li key={membership.team.id}>
-                        <Link to={`/team/${membership.team.id}`}>
-                            {membership.team.name}
+                        <Link to={`/team/${membership.team.id}`} className="ct-team-list__link">
+                            <div>
+                                <h2 className="ct-team-list__name">{membership.team.name}</h2>
+                                <p className="ct-team-list__meta">X projects</p>
+                            </div>
                         </Link>
                     </li>
                 )}
