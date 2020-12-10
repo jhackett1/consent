@@ -1,6 +1,5 @@
 import React from "react"
 import { 
-  BrowserRouter as Router, 
   Route,
   Switch
 } from "react-router-dom"
@@ -24,28 +23,26 @@ const App = () => {
 
   if(!user && !error) return <Loader/>
 
+  if(!user.id) return (
+    <Switch>
+      <Route path="/register" exact component={Register}/>
+      <Route path="/" component={Login}/>
+    </Switch>
+  )
+
   return (
-    <Router>
-      {user?.id ? 
-        <>
-          <Route path="/" exact component={ChooseTeam}/>
-          <Route path="/team/:teamId/">
-            <Layout>
-              <Route path="/team/:teamId/" exact component={Index}/>
-              <Route path="/team/:teamId/projects" component={Projects}/>
-              <Route path="/team/:teamId/project/:id" component={Project}/>
-              <Route path="/team/:teamId/forms" exact component={Forms}/>
-              <Route path="/team/:teamId/profile" component={Profile}/>
-            </Layout>
-          </Route>
-        </>
-        :
-        <Switch>
-          <Route path="/register" exact component={Register}/>
-          <Route path="/" component={Login}/>
-        </Switch>
-      }
-    </Router>
+    <>
+      <Route path="/" exact component={ChooseTeam}/>
+      <Route path="/team/:teamId/">
+        <Layout>
+          <Route path="/team/:teamId/" exact component={Index}/>
+          <Route path="/team/:teamId/projects" component={Projects}/>
+          <Route path="/team/:teamId/project/:id" component={Project}/>
+          <Route path="/team/:teamId/forms" exact component={Forms}/>
+          <Route path="/team/:teamId/profile" component={Profile}/>
+        </Layout>
+      </Route>
+    </>
   )
 }
 

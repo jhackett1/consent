@@ -1,5 +1,4 @@
 const { PrismaClient } = require("@prisma/client")
-const bcrypt = require("bcrypt")
 const ApiError = require("../lib/ApiError")
 const { ProjectSchema } = require("../schemas/index")
 const can = require("../authorisations/index")
@@ -31,8 +30,9 @@ module.exports = {
     create: async (req, res) => {
         can.seeTeam(req)
         await ProjectSchema.validate(req.body)
+        const { name } = req.body
         const project = await db.project.create({ data: {
-            name: req.body.name,
+            name: name,
             team: {
                 connect: { id: req.params.teamId }
             }
