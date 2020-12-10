@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Formik, Form } from "formik"
 import Field from "../components/Field"
 import Dialog from "../components/Dialog"
-import { useHistory } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 import { useToast } from "../contexts/toastContext"
 import * as Yup from "yup"
 import { mutate } from "swr"
@@ -17,17 +17,18 @@ const schema = Yup.object().shape({
 const NewProject = () => {
     
     const history = useHistory()
+    const { teamId } = useParams()
     const { popToast } = useToast()
     const [ submitError, setSubmitError ] = useState(false)
 
     return(
-        <Dialog open={true} title="Create a new project" onDismiss={() => history.push("/projects")}>
+        <Dialog open={true} title="Create a new project" onDismiss={() => history.push(`/team/${teamId}/projects`)}>
             <Formik
                 initialValues={{ name: "" }}
                 validationSchema={schema}
                 onSubmit={async values => {
                     try{
-                        const res = await fetch("/api/v1/projects", {
+                        const res = await fetch(`/api/v1/team/${teamId}/projects`, {
                             method: "POST",
                             body: JSON.stringify(values),
                             headers: {
@@ -36,8 +37,8 @@ const NewProject = () => {
                         })
                         const data = await res.json()
                         if(!data.error){
-                            mutate(`/api/v1/projects`)
-                            history.push("/projects")
+                            mutate(`/api/v1/team/${teamId}/projects`)
+                            history.push(`/team/${teamId}/projects`)
                             popToast("Your project has been created")
                         } else {
                             throw new Error(data.error)

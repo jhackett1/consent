@@ -22,7 +22,7 @@ const Projects = () => {
           value={search}
           onChange={newValue => setSearch(newValue)}
         />
-        <Link className="ct-button ct-button--new" to="/projects/new">New project</Link>
+        <Link className="ct-button ct-button--new" to={`/team/${teamId}/projects/new`}>New project</Link>
       </>
     }>
       <Helmet>
@@ -34,7 +34,7 @@ const Projects = () => {
         search={search}
       />
 
-      <Route path="/projects/new" exact component={NewProject}/>
+      <Route path={`/team/:teamId/projects/new`} exact component={NewProject}/>
 
     </DataPanel>
   )
