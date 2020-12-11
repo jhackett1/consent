@@ -33,15 +33,17 @@ const App = () => {
   return (
     <>
       <Route path="/" exact component={ChooseTeam}/>
-      <Layout>
         <Route path="/team/:teamId/">
+        <Layout>
           <Route path="/team/:teamId/" exact component={Index}/>
           <Route path="/team/:teamId/projects" component={Projects}/>
           <Route path="/team/:teamId/project/:id" component={Project}/>
           <Route path="/team/:teamId/forms" exact component={Forms}/>
+        </Layout>
         </Route>
-        <Route path="/profile" component={Profile}/>
-      </Layout>
+        <Layout>
+          <Route path="/profile" component={Profile}/>
+        </Layout>
     </>
   )
 }
