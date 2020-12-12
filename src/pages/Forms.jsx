@@ -4,6 +4,29 @@ import { Link, useParams } from "react-router-dom"
 import DataPanel from "../components/DataPanel"
 import useSWR from "swr"
 
+const Row = ({
+    id,
+    name,
+    created_at,
+    project,
+    teamId
+}) => {
+    const rawDate = new Date(created_at)
+    const date = `${rawDate.getDate()}.${rawDate.getMonth()+1}.${rawDate.getFullYear()}`
+    return(
+        <tr>
+            <td>{name}</td>
+            <td><Link className="ct-link" to={`/team/${teamId}/project/${project.id}`}>{project.name}</Link></td>
+            <td></td>
+            <td>{date}</td>
+            <td>
+                <Link className="ct-link" to={`/team/${teamId}/form/${id}`}>Edit</Link>
+                <Link className="ct-link" to="#">Preview</Link>
+            </td>
+        </tr>
+    )
+}
+
 const Forms = () => {
 
     const { teamId } = useParams()
@@ -15,32 +38,26 @@ const Forms = () => {
                 <title>Forms | Consent</title>
             </Helmet>
 
-            <table className="ct-data-chunk__table">
-                <thead>
-                    <tr>
-                        <th>Form</th>
-                        <th>Project</th>
-                        <th>Participants</th>
-                        <th>Created</th>
-                        <th className="ct-visually-hidden">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data && data.map(form => 
-                        <tr key={form.id}>
-                            <td>{form.name}</td>
-                            <td><Link className="ct-link" to={`/team/${teamId}/project/${form.project.id}`}>{form.project.name}</Link></td>
-                            <td>5 <em>(3 awaiting)</em></td>
-                            <td>{form.created_at}</td>
-                            <td>
-                                <Link className="ct-link" to={`/team/${teamId}/form/${form.id}`}>Edit</Link>
-                                <Link className="ct-link" to="#">Remove</Link>
-                            </td>
+            {data.length > 0 ?
+                <table className="ct-data-chunk__table">
+                    <thead>
+                        <tr>
+                            <th>Form</th>
+                            <th>Project</th>
+                            <th>Participants</th>
+                            <th>Created</th>
+                            <th className="ct-visually-hidden">Actions</th>
                         </tr>
-                    )}
-            </tbody>
-            </table>
-
+                    </thead>
+                    <tbody>
+                        {data.map(form => 
+                            <Row key={form.id} teamId={teamId} {...form}/>
+                        )}
+                    </tbody>
+                </table>
+                :
+                <p className="ct-no-results">No forms to show yet</p>
+            }
         </DataPanel>
     )
 }
