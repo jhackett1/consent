@@ -1,13 +1,11 @@
 const { PrismaClient } = require("@prisma/client")
 const ApiError = require("../lib/ApiError")
 const { ProjectSchema } = require("../schemas/index")
-const can = require("../authorisations/index")
 
 const db = new PrismaClient()
 
 module.exports = {
     index: async (req, res) => {
-        can.seeTeam(req)
         const projects = await db.project.findMany({where: {
             team: {
                 id: parseInt(req.params.teamId)
@@ -17,7 +15,6 @@ module.exports = {
     },
 
     show: async (req, res) => {
-        can.seeTeam(req)
         const project = await db.project.findFirst({
             where: {
                 id: parseInt(req.params.id),
@@ -33,7 +30,6 @@ module.exports = {
     },
 
     create: async (req, res) => {
-        can.seeTeam(req)
         let { name } = await ProjectSchema.cast(req.body)
         const project = await db.project.create({ data: {
             name: name,
@@ -49,7 +45,6 @@ module.exports = {
     },
 
     update: async (req, res, next) => {
-        can.seeTeam(req)
         await ProjectSchema.validate(req.body)
         const { name } = req.body
         const project = await db.project.update({ 

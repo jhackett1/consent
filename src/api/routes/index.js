@@ -8,7 +8,7 @@ const {
     authenticated, 
     google 
 } = require("../controllers/auth")
-const projects = require("../controllers/projects")
+const projectRoutes = require("./_projects")
 
 const rtr = Router()
 
@@ -21,11 +21,7 @@ rtr.use(async(authenticated))
 rtr.get("/auth/me", async(me))
 rtr.delete("/auth/logout", async(logout))
 
-rtr.get("/team/:teamId/projects", async(projects.index))
-rtr.get("/team/:teamId/projects/:id", async(projects.show))
-rtr.post("/team/:teamId/projects", async(projects.create))
-rtr.put("/team/:teamId/projects/:id", async(projects.update))
-rtr.delete("/team/:teamId/projects/:id", async(projects.destroy))
+rtr.use("/team/:teamId/projects", projectRoutes)
 
 rtr.use(errorHandler)
 rtr.use(fallbackHandler)
