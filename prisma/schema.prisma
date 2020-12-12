@@ -61,8 +61,6 @@ model Form {
   project_id    Int
   permissions   Permission[]
   project       Project     @relation(fields: [project_id], references: [id])
-
-  @@unique([name, project_id], name: "Form.name_project_id_unique")
 }
 
 model Permission {

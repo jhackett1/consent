@@ -9,6 +9,7 @@ const {
     google 
 } = require("../controllers/auth")
 const projectRoutes = require("./_projects")
+const formRoutes = require("./_forms")
 
 const rtr = Router()
 
@@ -22,6 +23,7 @@ rtr.get("/auth/me", async(me))
 rtr.delete("/auth/logout", async(logout))
 
 rtr.use("/team/:teamId/projects", projectRoutes)
+rtr.use("/team/:teamId/forms", formRoutes)
 
 rtr.use(errorHandler)
 rtr.use(fallbackHandler)
