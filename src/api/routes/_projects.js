@@ -5,16 +5,13 @@ const {
     show,
     create,
     update,
-    destroy
+    destroy,
+    authorised
 } = require("../controllers/projects")
-const can = require("../authorisations/index")
 
 const rtr = Router({ mergeParams: true })
 
-rtr.use((req, res, next) => {
-    can.seeTeam(req.user, req.params.teamId)
-    next()
-})
+rtr.use(authorised)
 
 rtr.get("/", async(index))
 rtr.get("/:id", async(show))

@@ -1,10 +1,17 @@
 const { PrismaClient } = require("@prisma/client")
 const ApiError = require("../lib/ApiError")
 const { ProjectSchema } = require("../schemas/index")
+const can = require("../authorisations/index")
 
 const db = new PrismaClient()
 
 module.exports = {
+
+    authorised: (req, res, next) => {
+        can.seeTeam(req.user, req.params.teamId)
+        next()
+    },
+
     index: async (req, res) => {
         const projects = await db.project.findMany({where: {
             team: {
