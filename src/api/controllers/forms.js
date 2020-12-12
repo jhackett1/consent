@@ -13,11 +13,18 @@ module.exports = {
     },
 
     index: async (req, res) => {
-        const forms = await db.form.findMany({where: {
-            team: {
-                id: parseInt(req.params.teamId)
+        const forms = await db.form.findMany({
+            where: {
+                project: {
+                    team: {
+                        id: parseInt(req.params.teamId)
+                    }
+                }
+            },
+            include: {
+                project: true
             }
-        }})
+    })
         res.json(forms)
     },
 

@@ -1,10 +1,9 @@
-import React, { Suspense, useState, useEffect } from "react"
+import React, { useState } from "react"
 import Helmet from "react-helmet"
 import { Route, Link, useParams } from "react-router-dom"
 import DataPanel from "../components/DataPanel"
 import MiniSearch from "../components/MiniSearch"
 import ProjectsList from "../components/ProjectsList"
-import { ProjectSkeleton } from "../components/Skeleton"
 import useSWR from "swr"
 import NewProject from "./NewProject"
 
