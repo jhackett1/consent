@@ -13,9 +13,10 @@ model Team {
   created_at DateTime     @default(now())
   updated_at DateTime     @updatedAt
   slug       String       
-  activity   Activity[]
-  membership Membership[]
+  permissions Permission[]
+  memberships Membership[]
   projects   Project[]
+  email       String?
 }
 
 model Membership {
@@ -52,15 +53,31 @@ model Project {
   @@unique([name, team_id], name: "Project.name_team_id_unique")
 }
 
-model Activity {
+model Form {
+  id            Int         @id @default(autoincrement())
+  name          String
+  created_at    DateTime    @default(now())
+  updated_at    DateTime    @updatedAt
+  project_id    Int
+  permissions   Permission[]
+  project       Project     @relation(fields: [project_id], references: [id])
+
+  @@unique([name, project_id], name: "Form.name_project_id_unique")
+}
+
+model Permission {
   id         Int      @id @default(autoincrement())
   name       String
+  description String?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   team_id    Int
-  team       Team     @relation(fields: [team_id], references: [id])
+  required   Boolean
 
-  @@unique([name, team_id], name: "Activity.name_team_id_unique")
+  team       Team     @relation(fields: [team_id], references: [id])
+  forms      Form[]
+
+  @@unique([name, team_id], name: "Permission.name_team_id_unique")
 }
 
 model Session {

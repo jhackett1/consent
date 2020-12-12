@@ -41,7 +41,7 @@ const Layout = ({
                     <div className="ct-user-card">
                         <img src={user.picture || userIcon} alt="" className="ct-user-card__icon"/>
                         <div className="ct-user-card__body">
-                            <Link to="/profile" className="ct-user-card__username">{user.name}</Link>
+                            <Link to={`/team/${teamId}/profile`} className="ct-user-card__username">{user.name}</Link>
                             <br/>
                             <TeamPicker/>
                         </div>
