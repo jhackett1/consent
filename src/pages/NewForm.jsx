@@ -2,40 +2,39 @@ import React, { useState } from "react"
 import { Formik, Form } from "formik"
 import Field from "../components/Field"
 import Dialog from "../components/Dialog"
-import { useHistory } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 import { useToast } from "../contexts/toastContext"
 import * as Yup from "yup"
 import { mutate } from "swr"
 
 const schema = Yup.object().shape({
     name: Yup.string()
-        .required("Your project needs a name")
+        .required("Your form needs a name")
         .min(3, "Name needs to be at least three characters")
         .max(100, "Name can't be longer than 100 characters")
 })
 
-const EditProject = ({
-    project
-}) => {
+const NewForm = () => {
     
     const history = useHistory()
+    const { teamId } = useParams()
     const { popToast } = useToast()
     const [ submitError, setSubmitError ] = useState(false)
 
-    if(project) return(
+    if(form) return(
         <Dialog 
             open={true} 
-            title={`Editing ${project.name}`}
-            onDismiss={() => history.push(`/team/${project.team.id}/project/${project.id}`)}
+            title="Create a new form" 
+            onDismiss={() => history.push(`/team/${teamId}/forms`)}
         >
             <Formik
                 initialValues={{
-                    name: project.name
+                    name: ""
                 }}
                 validationSchema={schema}
                 onSubmit={async values => {
-                    const res = await fetch(`/api/v1/team/${project.team.id}/projects/${project.id}`, {
-                        method: "PUT",
+                    const res = await fetch(`/api/v1/team/${teamId}/forms`, {
+                        method: "POST",
                         body: JSON.stringify(values),
                         headers: {
                             "Content-Type": "application/json"
@@ -43,8 +42,8 @@ const EditProject = ({
                     })
                     const data = await res.json()
                     if(!data.error){
-                        history.push(`/team/${project.team.id}/project/${project.id}`)
-                        mutate(`/api/v1/team/${project.team.id}/projects/${project.id}`)
+                        history.push(`/team/${teamId}/forms`)
+                        mutate(`/api/v1/team/${teamId}/forms`)
                         popToast("Project name updated")
                     } else {
                         setSubmitError(data.error)
@@ -69,4 +68,4 @@ const EditProject = ({
     return <p>Loading...</p>
 }
 
-export default EditProject
+export default NewForm

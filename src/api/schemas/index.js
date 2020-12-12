@@ -24,6 +24,15 @@ module.exports = {
 
     ProjectSchema: Yup.object().shape({
         name: Yup.string()
+            .required()
             .min(3)
+    }),
+
+    FormSchema: Yup.object().shape({
+        name: Yup.string()
+            .required()
+            .min(3),
+        projectId: Yup.number()
+            .required()
     })
 }

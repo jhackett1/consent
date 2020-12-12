@@ -1,8 +1,9 @@
 import React from "react"
 import Helmet from "react-helmet"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, Route } from "react-router-dom"
 import DataPanel from "../components/DataPanel"
 import useSWR from "swr"
+import NewForm from "../components/NewForm"
 
 const Row = ({
     id,
@@ -58,6 +59,9 @@ const Forms = () => {
                 :
                 <p className="ct-no-results">No forms to show yet</p>
             }
+
+            <Route path={`/team/:teamId/forms/new`} exact component={NewForm}/>
+
         </DataPanel>
     )
 }
