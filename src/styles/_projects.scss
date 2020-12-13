@@ -25,7 +25,7 @@
         }
         &:focus-within{
             background: $black;
-            box-shadow: 0px 3px 0px 3px $black;
+            box-shadow: 0px 5px 0px 5px $black;
             border-color: $white;
             *{
                 color: $white;

@@ -4,32 +4,10 @@ import { Link, useParams, Route } from "react-router-dom"
 import DataPanel from "../components/DataPanel"
 import useSWR from "swr"
 import NewForm from "./NewForm"
-
-const Row = ({
-    id,
-    name,
-    created_at,
-    project,
-    teamId
-}) => {
-    const rawDate = new Date(created_at)
-    const date = `${rawDate.getDate()}.${rawDate.getMonth()+1}.${rawDate.getFullYear()}`
-    return(
-        <tr>
-            <td>{name}</td>
-            <td><Link className="ct-link" to={`/team/${teamId}/project/${project.id}`}>{project.name}</Link></td>
-            <td></td>
-            <td>{date}</td>
-            <td>
-                <Link className="ct-link" to={`/team/${teamId}/form/${id}`}>Edit</Link>
-                <Link className="ct-link" to="#">Preview</Link>
-            </td>
-        </tr>
-    )
-}
+import FormList from "../components/FormList"
+import { TableSkeleton } from "../components/Skeleton"
 
 const Forms = () => {
-
     const { teamId } = useParams()
     const { data, error } = useSWR(`/api/v1/team/${teamId}/forms`)
 
@@ -37,10 +15,6 @@ const Forms = () => {
         <DataPanel header={
             <>
               <h1 className="ct-visually-hidden">Forms</h1>
-              {/* <MiniSearch
-                value={search}
-                onChange={newValue => setSearch(newValue)}
-              /> */}
               <Link className="ct-button ct-button--new" to={`/team/${teamId}/forms/new`}>New form</Link>
             </>
           }>
@@ -48,29 +22,19 @@ const Forms = () => {
                 <title>Forms | Consent</title>
             </Helmet>
 
-            {data && data.length > 0 ?
-                <table className="ct-data-chunk__table">
-                    <thead>
-                        <tr>
-                            <th>Form</th>
-                            <th>Project</th>
-                            <th>Participants</th>
-                            <th>Created</th>
-                            <th className="ct-visually-hidden">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map(form => 
-                            <Row key={form.id} teamId={teamId} {...form}/>
-                        )}
-                    </tbody>
-                </table>
+            {data ?
+                <FormList forms={data}/>
                 :
-                <p className="ct-no-results">No forms to show yet</p>
+                <TableSkeleton columns={[
+                    "Form",
+                    "Project",
+                    "Participants",
+                    "Created",
+                    ""
+                ]}/>
             }
 
             <Route path={`/team/:teamId/forms/new`} exact component={NewForm}/>
-
         </DataPanel>
     )
 }

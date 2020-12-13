@@ -1,0 +1,29 @@
+.ct-table{
+    table-layout: auto;
+    width: 100%;
+    border-collapse: collapse;
+    color: $black;
+    
+    th{
+        padding-bottom: 10px;
+        text-align: left;
+    }
+
+    td{
+        padding: 15px 0px;
+        &:last-of-type{
+            text-align: right;
+        }
+    }
+
+    tr{
+        border-bottom: 1px solid $grey;
+    }
+
+    a{
+        margin-right: 10px;
+        &:last-of-type{
+            margin-right: 0;
+        }
+    }
+}
