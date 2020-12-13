@@ -21,9 +21,11 @@ const Forms = () => {
             <Helmet>
                 <title>Forms | Consent</title>
             </Helmet>
-
             {data ?
-                <FormList forms={data}/>
+                data.length > 0 ?
+                    <FormList forms={data} teamId={teamId}/>
+                    :
+                    <p className="ct-no-results">No forms have been created yet</p>
                 :
                 <TableSkeleton columns={[
                     "Form",
@@ -33,7 +35,6 @@ const Forms = () => {
                     ""
                 ]}/>
             }
-
             <Route path={`/team/:teamId/forms/new`} exact component={NewForm}/>
         </DataPanel>
     )
