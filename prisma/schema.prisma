@@ -8,14 +8,14 @@ datasource db {
 }
 
 model Team {
-  id         Int          @id @default(autoincrement())
-  name       String
-  created_at DateTime     @default(now())
-  updated_at DateTime     @updatedAt
-  slug       String       
+  id          Int          @id @default(autoincrement())
+  name        String
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @updatedAt
+  slug        String       
   permissions Permission[]
   memberships Membership[]
-  projects   Project[]
+  projects    Project[]
   email       String?
 }
 
@@ -65,15 +65,15 @@ model Form {
 }
 
 model Permission {
-  id         Int      @id @default(autoincrement())
-  name       String
+  id          Int      @id @default(autoincrement())
+  name        String
   description String?
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  team_id    Int
-  required   Boolean
-  team       Team     @relation(fields: [team_id], references: [id])
-  forms      Form[]
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  team_id     Int
+  required    Boolean
+  team        Team     @relation(fields: [team_id], references: [id])
+  forms       Form[]
 
   @@unique([name, team_id])
 }
@@ -85,7 +85,7 @@ model Response {
   agreed_to       Json
   form_id         Int
   participant_id  Int
-  form            Team     @relation(fields: [form_id], references: [id])
+  form            Form     @relation(fields: [form_id], references: [id])
   participant     User     @relation(fields: [participant_id], references: [id])
 
   @@unique([form_id, participant_id])
