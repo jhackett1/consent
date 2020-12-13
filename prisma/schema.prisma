@@ -49,8 +49,8 @@ model Project {
   updated_at DateTime @updatedAt
   team_id    Int
   team       Team     @relation(fields: [team_id], references: [id])
-
-  @@unique([name, team_id], name: "Project.name_team_id_unique")
+  forms      Form[]
+  @@unique([name, team_id])
 }
 
 model Form {
@@ -75,7 +75,7 @@ model Permission {
   team       Team     @relation(fields: [team_id], references: [id])
   forms      Form[]
 
-  @@unique([name, team_id], name: "Permission.name_team_id_unique")
+  @@unique([name, team_id])
 }
 
 model Response {

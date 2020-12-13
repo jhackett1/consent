@@ -30,7 +30,8 @@ module.exports = {
                 }
             },
             include: {
-                team: true
+                team: true,
+                forms: true
             }
     })
         res.json(project)
