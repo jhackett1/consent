@@ -38,7 +38,7 @@ const App = () => {
           <Route path="/team/:teamId/" exact component={Index}/>
           <Route path="/team/:teamId/projects" component={Projects}/>
           <Route path="/team/:teamId/project/:id" component={Project}/>
-          <Route path="/team/:teamId/forms" exact component={Forms}/>
+          <Route path="/team/:teamId/forms" component={Forms}/>
           <Route path="/team/:teamId/profile" component={Profile}/>
         </Layout>
       </Route>

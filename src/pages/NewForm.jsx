@@ -1,17 +1,20 @@
 import React, { useState } from "react"
 import { Formik, Form } from "formik"
 import Field from "../components/Field"
+import SelectField from "../components/SelectField"
 import Dialog from "../components/Dialog"
 import { useHistory, useParams } from "react-router-dom"
 import { useToast } from "../contexts/toastContext"
 import * as Yup from "yup"
-import { mutate } from "swr"
+import useSWR, { mutate } from "swr"
 
 const schema = Yup.object().shape({
     name: Yup.string()
         .required("Your form needs a name")
         .min(3, "Name needs to be at least three characters")
-        .max(100, "Name can't be longer than 100 characters")
+        .max(100, "Name can't be longer than 100 characters"),
+    projectId: Yup.number()
+        .required("Your form needs to belong to a project")
 })
 
 const NewForm = () => {
@@ -19,9 +22,10 @@ const NewForm = () => {
     const history = useHistory()
     const { teamId } = useParams()
     const { popToast } = useToast()
+    const { data, error } = useSWR(`/api/v1/team/${teamId}/projects`)
     const [ submitError, setSubmitError ] = useState(false)
 
-    if(form) return(
+    if(data) return(
         <Dialog 
             open={true} 
             title="Create a new form" 
@@ -29,7 +33,8 @@ const NewForm = () => {
         >
             <Formik
                 initialValues={{
-                    name: ""
+                    name: "",
+                    projectId: data[0].id
                 }}
                 validationSchema={schema}
                 onSubmit={async values => {
@@ -44,7 +49,7 @@ const NewForm = () => {
                     if(!data.error){
                         history.push(`/team/${teamId}/forms`)
                         mutate(`/api/v1/team/${teamId}/forms`)
-                        popToast("Project name updated")
+                        popToast("Your form has been created")
                     } else {
                         setSubmitError(data.error)
                     }
@@ -57,6 +62,15 @@ const NewForm = () => {
                             name="name" 
                             label="Name"
                             errors={touched.name ? errors.name : null}
+                        />
+                        <SelectField 
+                            name="projectId" 
+                            label="Project"
+                            options={data.map(project => ({
+                                label: project.name,
+                                value: project.id
+                            }))}
+                            errors={touched.projectId ? errors.projectId : null}
                         />
                         <button className="ct-button" disabled={isSubmitting}>Save</button>
                     </Form>

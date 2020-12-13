@@ -7,7 +7,8 @@
         margin-bottom: 5px;
     }
 
-    input{
+    input,
+    select{
         width: 100%;
         color: $black;
         background: none;
@@ -23,6 +24,14 @@
         &::placeholder{
             color: transparentize($black, 0.5)
         }
+    }
+
+    select{
+        cursor: pointer;
+        appearance: none;
+        background-image: url("../assets/select-arrow.svg");
+        background-position: center right;
+        background-repeat: no-repeat;
     }
 
     &__error{

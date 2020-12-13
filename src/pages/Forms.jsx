@@ -3,7 +3,7 @@ import Helmet from "react-helmet"
 import { Link, useParams, Route } from "react-router-dom"
 import DataPanel from "../components/DataPanel"
 import useSWR from "swr"
-import NewForm from "../components/NewForm"
+import NewForm from "./NewForm"
 
 const Row = ({
     id,
@@ -34,12 +34,21 @@ const Forms = () => {
     const { data, error } = useSWR(`/api/v1/team/${teamId}/forms`)
 
     return(
-        <DataPanel>
+        <DataPanel header={
+            <>
+              <h1 className="ct-visually-hidden">Forms</h1>
+              {/* <MiniSearch
+                value={search}
+                onChange={newValue => setSearch(newValue)}
+              /> */}
+              <Link className="ct-button ct-button--new" to={`/team/${teamId}/forms/new`}>New form</Link>
+            </>
+          }>
             <Helmet>
                 <title>Forms | Consent</title>
             </Helmet>
 
-            {data.length > 0 ?
+            {data && data.length > 0 ?
                 <table className="ct-data-chunk__table">
                     <thead>
                         <tr>
