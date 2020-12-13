@@ -1,8 +1,6 @@
 import React from "react"
 import Helmet from "react-helmet"
-import { Link } from "react-router-dom"
 import DataPanel from "../components/DataPanel"
-import DataChunk from "../components/DataChunk"
 import Stat from "../components/Stat"
 
 const Index = () => {
@@ -19,7 +17,6 @@ const Index = () => {
         <Stat direction="positive"/>
       </dl>
 
-      <DataChunk/>
     </DataPanel>
   )
 }

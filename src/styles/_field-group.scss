@@ -1,0 +1,13 @@
+.ct-field-group{
+    margin-bottom: 45px;
+
+    @media screen and (min-width: 900px){
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 35px;
+
+        *{
+            margin-bottom: 0;
+        }
+    }
+}

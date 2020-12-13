@@ -20,17 +20,17 @@ export const TableSkeleton = ({
     <tbody>
       <tr>
         {columns.map((col, i) =>
-          <td><div></div></td>
+          <td key={i}><div></div></td>
         )}
       </tr>
       <tr>
         {columns.map((col, i) =>
-          <td><div></div></td>
+          <td key={i}><div></div></td>
         )}
       </tr>
       <tr>
         {columns.map((col, i) =>
-          <td><div></div></td>
+          <td key={i}><div></div></td>
         )}
       </tr>
     </tbody>

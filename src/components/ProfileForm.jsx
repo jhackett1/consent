@@ -44,12 +44,16 @@ const ProfileForm = ({
         >
             {({errors, touched, isSubmitting}) =>
                 <Form>
-                    <Field label="Name" name="name" errors= {touched.name ? errors.name : null}/>
-                    <Field label="Email address" name="email" type="email" errors= {touched.email ? errors.email : null}/>
+                    <div className="ct-field-group">
+                        <Field label="Name" name="name" errors= {touched.name ? errors.name : null}/>
+                        <Field label="Email address" name="email" type="email" errors= {touched.email ? errors.email : null}/>
+                    </div>
                     <h2>Change your password</h2>
-                    <Field label="Current password" name="password" type="password" errors= {touched.password ? errors.password : null}/>
-                    <Field label="New password" name="new_password" type="password" errors= {touched.new_password ? errors.new_password : null}/>
-                    <Field label="Re-enter new password" name="confirm_new_password" type="password" errors= {touched.confirm_new_password ? errors.confirm_new_password : null}/>
+                    <div className="ct-field-group">
+                        <Field label="Current password" name="password" type="password" errors= {touched.password ? errors.password : null}/>
+                        <Field label="New password" name="new_password" type="password" errors= {touched.new_password ? errors.new_password : null}/>
+                        <Field label="Re-enter new password" name="confirm_new_password" type="password" errors= {touched.confirm_new_password ? errors.confirm_new_password : null}/>
+                    </div>
                     <button className="ct-button" disabled={isSubmitting}>Save changes</button>
                 </Form>
             }
