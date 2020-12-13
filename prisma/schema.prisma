@@ -60,7 +60,7 @@ model Form {
   updated_at    DateTime    @updatedAt
   project_id    Int
   permissions   Permission[]
-  participants  Participant[]
+  responses     Response[]
   project       Project     @relation(fields: [project_id], references: [id])
 }
 
@@ -72,11 +72,23 @@ model Permission {
   updated_at DateTime @updatedAt
   team_id    Int
   required   Boolean
-
   team       Team     @relation(fields: [team_id], references: [id])
   forms      Form[]
 
   @@unique([name, team_id], name: "Permission.name_team_id_unique")
+}
+
+model Response {
+  id              String   @id @default(cuid())
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+  agreed_to       Json
+  form_id         Int
+  participant_id  Int
+  form            Team     @relation(fields: [form_id], references: [id])
+  participant     User     @relation(fields: [participant_id], references: [id])
+
+  @@unique([form_id, participant_id])
 }
 
 model Participant {
@@ -84,8 +96,7 @@ model Participant {
   name       String
   email      String
   phone      String
-  forms      Form[]
-  agreed_to  Json
+  responses  Response[]
   team_id    Int
   team       Team     @relation(fields: [team_id], references: [id])
   created_at DateTime @default(now())
