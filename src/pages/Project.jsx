@@ -33,7 +33,13 @@ const Project = () => {
         }
 
 
-        <Chunk title="Forms">
+        <Chunk 
+        title="Forms" 
+        count={project?.forms.length}
+        links={ project?.forms.length && 
+          <Link to={`/team/${teamId}/forms?projectId=${project.id}`} className="ct-link ct-data-chunk__quick-link">See all</Link>
+        }
+        >
           {project ?
             project.forms.length > 0 ? 
               <FormsTable forms={project.forms} teamId={teamId}/>
@@ -51,6 +57,10 @@ const Project = () => {
 
         <Chunk title="Participants">
         </Chunk>
+
+        <Route path="/team/:teamId/project/:id/edit">
+          <EditProject project={project}/>
+        </Route>
 
         <Route path="/team/:teamId/project/:id/edit">
           <EditProject project={project}/>

@@ -1,6 +1,6 @@
 import React from "react"
 import Helmet from "react-helmet"
-import { Link, useParams, Route } from "react-router-dom"
+import { Link, useParams, useLocation, Route } from "react-router-dom"
 import DataPanel from "../components/DataPanel"
 import useSWR from "swr"
 import NewForm from "./NewForm"
@@ -9,7 +9,8 @@ import { TableSkeleton } from "../components/Skeleton"
 
 const Forms = () => {
     const { teamId } = useParams()
-    const { data, error } = useSWR(`/api/v1/team/${teamId}/forms`)
+    const { search } = useLocation()
+    const { data, error } = useSWR(() => `/api/v1/team/${teamId}/forms${search}`)
 
     return(
         <DataPanel header={

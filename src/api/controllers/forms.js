@@ -13,11 +13,14 @@ module.exports = {
     },
 
     index: async (req, res) => {
+        const { projectId } = req.query
+        const { teamId } = req.params
         const forms = await db.form.findMany({
             where: {
                 project: {
+                    id: projectId ? parseInt(projectId) : undefined,
                     team: {
-                        id: parseInt(req.params.teamId)
+                        id: parseInt(teamId)
                     }
                 }
             },

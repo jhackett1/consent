@@ -10,8 +10,8 @@ const Chunk = ({
     <section className="ct-data-chunk">
         <header className="ct-data-chunk__header">
             <h2 className="ct-data-chunk__title">
-                {title} 
-                {count && <span className="ct-data-chunk__count">({count})</span>}
+                {title}
+                {count && <span className="ct-data-chunk__count"> ({count})</span>}
             </h2>
             {links}
         </header>
