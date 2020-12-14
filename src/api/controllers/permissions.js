@@ -11,12 +11,14 @@ module.exports = {
     },
 
     index: async (req, res) => {
-        const permissions = await db.permission.findMany()
-        res.json(permissions.map(p=> ({
-            id: p.id, 
-            name: p.name, 
-            required: p.required
-        })))
+        const permissions = await db.permission.findMany({
+            select: {
+                id: true,
+                name: true,
+                required: true
+            }
+        })
+        res.json(permissions)
     },
 
 }

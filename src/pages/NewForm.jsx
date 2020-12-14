@@ -1,6 +1,7 @@
 import React, { useState } from "react"
-import { Formik, Form } from "formik"
+import { Formik, Form, Field as FormikField } from "formik"
 import Field from "../components/Field"
+import Checkboxes from "../components/Checkboxes"
 import SelectField from "../components/SelectField"
 import Dialog from "../components/Dialog"
 import { useHistory, useParams } from "react-router-dom"
@@ -14,7 +15,10 @@ const schema = Yup.object().shape({
         .min(3, "Name needs to be at least three characters")
         .max(100, "Name can't be longer than 100 characters"),
     projectId: Yup.number()
-        .required("Your form needs to belong to a project")
+        .required("Your form needs to belong to a project"),
+    requiredPermissions: Yup.array()
+        .min(1, "Your form needs to ask for at least one permission"),
+    optionalPermissions: Yup.array()
 })
 
 const NewForm = () => {
@@ -22,11 +26,11 @@ const NewForm = () => {
     const history = useHistory()
     const { teamId } = useParams()
     const { popToast } = useToast()
-    const { data: projects, error } = useSWR(`/api/v1/team/${teamId}/projects`)
-    const { data: permissions, error } = useSWR(`/api/v1/team/${teamId}/permissions`)
+    const { data: projects } = useSWR(`/api/v1/team/${teamId}/projects`)
+    const { data: permissions } = useSWR(`/api/v1/team/${teamId}/permissions`)
     const [ submitError, setSubmitError ] = useState(false)
 
-    if(data) return(
+    if(projects && permissions) return(
         <Dialog 
             open={true} 
             title="Create a new form" 
@@ -35,7 +39,8 @@ const NewForm = () => {
             <Formik
                 initialValues={{
                     name: "",
-                    projectId: data[0].id
+                    projectId: projects[0].id,
+                    permissions: []
                 }}
                 validationSchema={schema}
                 onSubmit={async values => {
@@ -73,6 +78,27 @@ const NewForm = () => {
                             }))}
                             errors={touched.projectId ? errors.projectId : null}
                         />
+
+                        <Checkboxes
+                            legend="Required permissions"
+                            name="requiredPermissions"
+                            options={permissions.filter(p => p.required).map(p => ({
+                                label: p.name,
+                                value: p.id
+                            }))}
+                            errors={touched.requiredPermissions ? errors.requiredPermissions : null}
+                        />
+
+                        <Checkboxes
+                            legend="Optional permissions"
+                            name="optionalPermissions"
+                            options={permissions.filter(p => !p.required).map(p => ({
+                                label: p.name,
+                                value: p.id
+                            }))}
+                            errors={touched.optionalPermissions ? errors.optionalPermissions : null}
+                        />
+
                         <button className="ct-button" disabled={isSubmitting}>Save</button>
                     </Form>
                 }
