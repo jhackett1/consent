@@ -22,7 +22,8 @@ const NewForm = () => {
     const history = useHistory()
     const { teamId } = useParams()
     const { popToast } = useToast()
-    const { data, error } = useSWR(`/api/v1/team/${teamId}/projects`)
+    const { data: projects, error } = useSWR(`/api/v1/team/${teamId}/projects`)
+    const { data: permissions, error } = useSWR(`/api/v1/team/${teamId}/permissions`)
     const [ submitError, setSubmitError ] = useState(false)
 
     if(data) return(
@@ -66,7 +67,7 @@ const NewForm = () => {
                         <SelectField 
                             name="projectId" 
                             label="Project"
-                            options={data.map(project => ({
+                            options={projects.map(project => ({
                                 label: project.name,
                                 value: project.id
                             }))}
